@@ -110,7 +110,7 @@ body.ch-body.advent-body {
   border-color: var(--ch-night);
 }
 .door-golden.door-locked { background: rgba(255, 243, 206, 0.65); }
-.door-golden.door-open { background: rgba(255, 203, 60, 0.85); }
+.door-golden.door-open { background: rgba(255, 203, 60, 0.7); }
 
 /* Farb-Tönungen aus der Config – Soft-Töne jeweils mit Alpha */
 .door-tint-sky.door-locked    { background: rgba(225, 243, 251, 0.5); }  /* sky-soft #E1F3FB */
