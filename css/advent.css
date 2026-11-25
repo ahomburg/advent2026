@@ -1,0 +1,260 @@
+/* ============================================================
+   Adventskalender – projektspezifische Ergänzungen
+   ------------------------------------------------------------
+   Nur CI-Tokens (--ch-*) verwenden, keine neuen Farben/Fonts.
+   Basis-Styles kommen aus css/camper-hans.css.
+   ============================================================ */
+
+/* ---------- Seitenhintergrund: die ehemalige Kopfgrafik ---------- */
+body.ch-body.advent-body {
+  background-image: url('../images/background-cover-mit-Hans2.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+/* Lesbarkeit der freien Überschriften/Texte auf dem Bildhintergrund */
+.advent-body main h1,
+.advent-body main h2,
+.advent-body main .ch-lead {
+  text-shadow: 0 2px 0 rgba(255, 253, 245, 0.85);
+}
+.advent-intro { margin-bottom: var(--ch-space-md); }
+.advent-section-head {
+  display: flex;
+  align-items: center;
+  gap: var(--ch-space-xs);
+  flex-wrap: wrap;
+}
+.advent-section-head .ch-h2 { margin-bottom: 0; }
+
+/* ---------- Türchen-Raster ---------- */
+.advent-grid {
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.door {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ch-space-3xs);
+  font-family: var(--ch-font-display);
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--ch-night);
+  background: var(--ch-paper);
+  border: 3px solid var(--ch-night);
+  border-radius: var(--ch-radius-lg);
+  box-shadow: var(--ch-shadow-sticker);
+  cursor: pointer;
+  user-select: none;
+  transition: transform var(--ch-fast) var(--ch-spring),
+              box-shadow var(--ch-fast) var(--ch-spring),
+              background-color var(--ch-fast) ease;
+  padding: var(--ch-space-2xs);
+}
+.door:hover { transform: translateY(3px) rotate(-1deg); box-shadow: 0 5px 0 rgba(34, 51, 59, 0.85); }
+.door:active { transform: translateY(8px); box-shadow: 0 0 0 rgba(34, 51, 59, 0.85); }
+.door:focus-visible { outline: 3px solid var(--ch-sun); outline-offset: 2px; }
+
+.door .door-emoji { font-size: 1.6rem; line-height: 1; }
+.door .door-lock { font-size: 1.1rem; line-height: 1; }
+.door .door-num {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-size: 0.8rem;
+  color: var(--ch-night-soft);
+}
+
+/* Noch verschlossen */
+.door-locked {
+  background: var(--ch-wood-soft);
+  cursor: not-allowed;
+}
+.door-locked:hover { transform: none; box-shadow: var(--ch-shadow-sticker); }
+
+/* Heute dran – sanft pulsierend */
+@keyframes doorGlow {
+  0%, 100% { box-shadow: var(--ch-shadow-sticker); }
+  50% { box-shadow: 0 8px 0 rgba(34, 51, 59, 0.85), 0 0 0 6px var(--ch-sun-soft); }
+}
+.door-today {
+  background: var(--ch-sun-soft);
+  animation: doorGlow 1.6s ease-in-out infinite;
+}
+
+/* Bereits geöffnet */
+.door-open {
+  background: var(--ch-forest-soft);
+  cursor: default;
+}
+.door-open:hover { transform: rotate(-1deg); box-shadow: var(--ch-shadow-sticker); }
+.door-open .door-num { color: var(--ch-forest-dark); }
+
+/* Das goldene Bonus-Türchen */
+.door-golden {
+  background: var(--ch-sun);
+  border-color: var(--ch-night);
+}
+.door-golden.door-locked { background: var(--ch-sun-soft); }
+.door-golden.door-open { background: var(--ch-sun); }
+
+/* Farb-Tönungen aus der Config */
+.door-tint-sky.door-locked    { background: var(--ch-sky-soft); }
+.door-tint-sun.door-locked     { background: var(--ch-sun-soft); }
+.door-tint-forest.door-locked  { background: var(--ch-forest-soft); }
+.door-tint-fire.door-locked    { background: var(--ch-fire-soft); }
+.door-tint-wood.door-locked    { background: var(--ch-wood-soft); }
+.door-tint-berry.door-locked   { background: var(--ch-berry-soft); }
+
+/* ---------- Hans' Advents-Wanderung (kompakt, unter dem Kalender) ---------- */
+.trail {
+  position: relative;
+  height: 76px;
+  margin-top: var(--ch-space-md);
+  margin-bottom: var(--ch-space-md);
+  border-bottom: 3px dashed var(--ch-wood);
+}
+.trail-hans-wrap {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  transform: translateX(-50%);
+  line-height: 0;
+  transition: left var(--ch-slow) var(--ch-spring);
+}
+.trail-hans-wrap img { height: 60px; width: auto; }
+.trail-fire {
+  position: absolute;
+  right: 0;
+  bottom: 4px;
+  font-size: 1.6rem;
+  filter: drop-shadow(0 4px 6px rgba(34, 51, 59, 0.2));
+}
+.trail-label {
+  position: absolute;
+  bottom: -26px;
+  left: 0;
+  transform: translateX(-50%);
+  font-family: var(--ch-font-hand);
+  font-size: 1.05rem;
+  color: var(--ch-campfire-dark);
+  white-space: nowrap;
+  transition: left var(--ch-slow) var(--ch-spring);
+}
+
+/* ---------- Sammelalbum (Sticker) ---------- */
+.sticker-slot {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  background: var(--ch-paper);
+  border: 2px dashed var(--ch-night-soft);
+  border-radius: var(--ch-radius-md);
+  color: var(--ch-night-soft);
+}
+.sticker-slot.sticker-got {
+  border: 3px solid var(--ch-night);
+  border-radius: var(--ch-radius-md);
+  background: var(--ch-sun-soft);
+  box-shadow: var(--ch-shadow-pop);
+  transform: rotate(-2deg);
+  color: var(--ch-night);
+}
+.sticker-slot.sticker-got:nth-child(2n) { transform: rotate(2deg); }
+
+/* ---------- Modal (Türchen-Inhalt) ---------- */
+.advent-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(34, 51, 59, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ch-space-sm);
+  z-index: 100;
+}
+.advent-overlay.advent-visible { display: flex; }
+
+.advent-modal {
+  max-width: 520px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--ch-paper);
+  border: 3px solid var(--ch-night);
+  border-radius: var(--ch-radius-xl);
+  box-shadow: var(--ch-shadow-sticker);
+  padding: var(--ch-space-md);
+  position: relative;
+  animation: modalPop var(--ch-slow) var(--ch-spring);
+}
+@keyframes modalPop {
+  from { transform: scale(0.7) rotate(-2deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.advent-modal-close {
+  position: absolute;
+  top: var(--ch-space-2xs);
+  right: var(--ch-space-2xs);
+}
+.advent-modal-emoji { font-size: 3rem; text-align: center; display: block; }
+.advent-modal .ch-hand {
+  background: var(--ch-sun-soft);
+  border: 2px dashed var(--ch-sun-dark);
+  border-radius: var(--ch-radius-md);
+  padding: var(--ch-space-2xs) var(--ch-space-sm);
+  display: inline-block;
+  transform: rotate(-1deg);
+}
+.raetsel-loesung { display: none; }
+.raetsel-loesung.raetsel-visible { display: block; }
+
+/* ---------- Toast (Hans meldet sich) ---------- */
+.advent-toast {
+  position: fixed;
+  left: 50%;
+  bottom: var(--ch-space-md);
+  transform: translateX(-50%) translateY(20px);
+  max-width: min(480px, 90vw);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--ch-normal) ease, transform var(--ch-normal) var(--ch-spring);
+  z-index: 120;
+}
+.advent-toast.advent-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* ---------- Leinwände (Konfetti & Schnee) ---------- */
+.advent-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 110;
+}
+#advent-schnee { z-index: 5; }
+
+/* ---------- Header-Buttons ---------- */
+.ch-header .ch-btn { min-height: 38px; }
+
+/* ---------- Finale ---------- */
+.advent-finale-emoji { font-size: 4rem; text-align: center; display: block; }
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .door-today { animation: none; }
+  .advent-modal { animation: none; }
+  .trail-hans-wrap, .trail-label { transition: none; }
+  .door { transition: none; }
+}

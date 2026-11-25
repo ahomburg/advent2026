@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Adventskalender im Camper-Hans-Stil – 24 Türchen voller Spiele, Rätsel und Überraschungen.">
+  <title>Adventskalender – Camper Hans</title>
+  <link rel="stylesheet" href="css/camper-hans.css">
+  <link rel="stylesheet" href="css/advent.css">
+  <link rel="icon" type="image/png" href="images/logos/logo-hans-emblem.png">
+</head>
+<body class="ch-body advent-body">
+
+  <header class="ch-header">
+    <div class="ch-header-inner">
+      <a class="ch-logo" href="#">
+        <img src="images/logos/logo-hans-emblem.png" alt="Camper Hans Logo">
+        <b>Camper</b>&nbsp;Hans
+      </a>
+      <nav class="ch-nav">
+        <a href="#kalender" class="ch-active">Kalender</a>
+        <a href="#sammelalbum">Sammelalbum</a>
+      </nav>
+      <div style="display:flex; gap: var(--ch-space-2xs);">
+        <button id="advent-sound" class="ch-btn ch-btn-ghost ch-btn-sm" type="button" aria-label="Ton an/aus">🔊 Ton</button>
+        <button id="advent-schnee-btn" class="ch-btn ch-btn-ghost ch-btn-sm" type="button" aria-label="Schnee an/aus">❄️ Schnee</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="ch-container" style="padding-top: var(--ch-space-md)">
+
+    <!-- Titel-Karte (die frühere Kopfgrafik ist jetzt Seitenhintergrund) -->
+    <div class="ch-card ch-card-sun advent-intro">
+      <h1 class="ch-h1" id="advent-titel">Advent im <em>Camper</em>!</h1>
+      <p class="ch-lead" id="advent-untertitel">24 Türchen warten auf dich – jeden Tag ein neues Goodie!</p>
+      <p class="ch-hand" id="advent-gruss" style="margin-bottom:0;">Hans sagt: Vorfreude ist die schönste Freude!</p>
+    </div>
+
+    <section id="kalender" class="ch-mt-lg" aria-label="Adventskalender">
+      <div class="advent-section-head">
+        <h2 class="ch-h2">Deine <em>24 Türchen</em></h2>
+        <span class="ch-badge ch-badge-forest" id="advent-offen">0 / 24</span>
+        <span class="ch-badge ch-badge-sun">⭐ 1 goldenes Türchen</span>
+      </div>
+      <p class="ch-lead ch-mb-sm">Ein Türchen öffnet sich an seinem Tag im Dezember. Das heutige pulsiert gold.</p>
+      <div class="ch-grid advent-grid" id="advent-tueren"><!-- wird von main.js gefüllt --></div>
+
+      <!-- Hans' Wanderung: kompakt unter dem Kalender -->
+      <div class="trail" aria-hidden="true">
+        <span class="trail-hans-wrap" id="advent-hans"><img class="ch-hans-walk" src="images/character/hans-walking.png" alt=""></span>
+        <span class="trail-fire">🔥</span>
+        <span class="trail-label" id="advent-trail-label">Start</span>
+      </div>
+      <p class="ch-text-muted ch-mb-sm">Hans hüpft bei jedem geöffneten Türchen ein Stück weiter zum Lagerfeuer.</p>
+    </section>
+
+    <!-- Sammelalbum -->
+    <section id="sammelalbum" class="ch-mt-lg">
+      <h2 class="ch-h2">Dein <em>Sammelalbum</em></h2>
+      <p class="ch-lead ch-mb-sm">Jedes geöffnete Türchen schenkt dir einen Sticker. Sammle alle 24!</p>
+      <div class="ch-card">
+        <div class="ch-grid advent-grid" id="advent-sticker"><!-- wird von main.js gefüllt --></div>
+        <div class="ch-mt-md ch-text-center" id="advent-finale-zone" style="display:none;">
+          <button class="ch-btn ch-btn-fire ch-btn-lg" id="advent-finale-btn" type="button">🔥 Finale feiern! 🔥</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Überraschung -->
+    <section class="ch-mt-lg">
+      <div class="ch-alert ch-alert-info">
+        <p class="ch-alert-title">Psst – eine Überraschung!</p>
+        <img class="ch-hans ch-hans-sm ch-float" src="images/character/hans-standing.png" alt="Hans flüstert" style="float:left; margin-right: var(--ch-space-sm);">
+        Irgendwo zwischen den 24 Türchen versteckt sich ein <b>goldenes Bonus-Türchen</b> ⭐.
+        Außerdem wandert Hans unten mit dir mit – und wenn alle 24 offen sind, wartet am Lagerfeuer eine große Finale-Überraschung.
+        <span class="ch-hand">Hans sagt: Augen auf beim Öffnen!</span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="ch-footer">
+    <div class="ch-footer-cols">
+      <div>
+        <h4>Adventskalender</h4>
+        <p>Ein Camper-Hans-Projekt – gemacht mit ⛺ und ❤️.</p>
+      </div>
+      <div>
+        <h4>Tipp für Papa</h4>
+        <p>Türchen testen: <code>testmodus: true</code> in <code>config/advent.config.js</code> oder <code>?datum=2026-12-24</code> an die Adresse hängen.</p>
+      </div>
+    </div>
+    <p class="ch-footer-copy">Bis bald am Lagerfeuer! — Hans</p>
+  </footer>
+
+  <!-- Türchen-Modal -->
+  <div class="advent-overlay" id="advent-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="advent-modal-titel">
+    <div class="advent-modal" id="advent-modal">
+      <button class="ch-btn ch-btn-ghost ch-btn-sm advent-modal-close" id="advent-modal-close" type="button" aria-label="Schließen">✖</button>
+      <span class="advent-modal-emoji" id="advent-modal-emoji">🎁</span>
+      <h2 class="ch-h2 ch-text-center" id="advent-modal-titel">Türchen</h2>
+      <div class="ch-text-center ch-mb-sm"><span class="ch-badge" id="advent-modal-badge">Türchen</span></div>
+      <p class="ch-lead" id="advent-modal-text"></p>
+      <div id="advent-modal-raetsel" style="display:none;">
+        <p class="ch-h3">🧩 Die Frage:</p>
+        <p id="advent-modal-frage"></p>
+        <button class="ch-btn ch-btn-sun ch-btn-sm" id="advent-modal-loesung-btn" type="button">Lösung anzeigen</button>
+        <div class="ch-alert ch-alert-success raetsel-loesung ch-mt-sm" id="advent-modal-loesung"></div>
+      </div>
+      <div class="ch-text-center ch-mt-md">
+        <a class="ch-btn ch-btn-primary" id="advent-modal-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">Los geht's!</a>
+        <button class="ch-btn ch-btn-primary" id="advent-modal-ok" type="button">Weiter!</button>
+      </div>
+      <p class="ch-hand ch-text-center ch-mt-sm" id="advent-modal-spruch"></p>
+    </div>
+  </div>
+
+  <!-- Finale-Overlay -->
+  <div class="advent-overlay" id="advent-finale-overlay" role="dialog" aria-modal="true" aria-labelledby="advent-finale-titel">
+    <div class="advent-modal ch-card-fire" style="text-align:center;">
+      <span class="advent-finale-emoji ch-bounce">🔥🎄🔥</span>
+      <h2 class="ch-h1" id="advent-finale-titel">Geschafft!</h2>
+      <p class="ch-lead" id="advent-finale-nachricht"></p>
+      <div class="ch-text-center ch-mt-md">
+        <a class="ch-btn ch-btn-sun ch-btn-lg" id="advent-finale-link" href="#" target="_blank" rel="noopener noreferrer">🎁 Zum Finale-Geschenk</a>
+        <button class="ch-btn ch-btn-ghost ch-btn-sm ch-mt-sm" id="advent-finale-close" type="button">Weiter stöbern</button>
+      </div>
+      <p class="ch-hand ch-mt-md">Hans sagt: Du bist der beste Camper weit und breit!</p>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="advent-toast" id="advent-toast" role="status">
+    <div class="ch-alert ch-alert-warning" style="margin:0; box-shadow: var(--ch-shadow-sticker);">
+      <p class="ch-alert-title" id="advent-toast-title">Moment!</p>
+      <span id="advent-toast-text"></span>
+    </div>
+  </div>
+
+  <canvas class="advent-canvas" id="advent-konfetti"></canvas>
+  <canvas class="advent-canvas" id="advent-schnee"></canvas>
+
+  <script src="config/advent.config.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
