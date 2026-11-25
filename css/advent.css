@@ -45,10 +45,13 @@ body.ch-body.advent-body {
   font-weight: 700;
   font-size: 2rem;
   color: var(--ch-night);
-  background: var(--ch-paper);
+  /* paper (#FFFDF5) mit Alpha – Türchen sind transparent, Hintergrund scheint durch */
+  background: rgba(255, 253, 245, 0.72);
   border: 3px solid var(--ch-night);
   border-radius: var(--ch-radius-lg);
   box-shadow: var(--ch-shadow-sticker);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   cursor: pointer;
   user-select: none;
   transition: transform var(--ch-fast) var(--ch-spring),
@@ -70,9 +73,9 @@ body.ch-body.advent-body {
   color: var(--ch-night-soft);
 }
 
-/* Noch verschlossen */
+/* Noch verschlossen (wood-soft #F3E6D7 mit Alpha) */
 .door-locked {
-  background: var(--ch-wood-soft);
+  background: rgba(243, 230, 215, 0.66);
   cursor: not-allowed;
 }
 .door-locked:hover { transform: none; box-shadow: var(--ch-shadow-sticker); }
@@ -83,33 +86,33 @@ body.ch-body.advent-body {
   50% { box-shadow: 0 8px 0 rgba(34, 51, 59, 0.85), 0 0 0 6px var(--ch-sun-soft); }
 }
 .door-today {
-  background: var(--ch-sun-soft);
+  background: rgba(255, 243, 206, 0.8); /* sun-soft #FFF3CE mit Alpha */
   animation: doorGlow 1.6s ease-in-out infinite;
 }
 
-/* Bereits geöffnet */
+/* Bereits geöffnet (forest-soft #E4F2DC mit Alpha) */
 .door-open {
-  background: var(--ch-forest-soft);
+  background: rgba(228, 242, 220, 0.78);
   cursor: default;
 }
 .door-open:hover { transform: rotate(-1deg); box-shadow: var(--ch-shadow-sticker); }
 .door-open .door-num { color: var(--ch-forest-dark); }
 
-/* Das goldene Bonus-Türchen */
+/* Das goldene Bonus-Türchen (sun #FFCB3C mit Alpha) */
 .door-golden {
-  background: var(--ch-sun);
+  background: rgba(255, 203, 60, 0.85);
   border-color: var(--ch-night);
 }
-.door-golden.door-locked { background: var(--ch-sun-soft); }
-.door-golden.door-open { background: var(--ch-sun); }
+.door-golden.door-locked { background: rgba(255, 243, 206, 0.8); }
+.door-golden.door-open { background: rgba(255, 203, 60, 0.85); }
 
-/* Farb-Tönungen aus der Config */
-.door-tint-sky.door-locked    { background: var(--ch-sky-soft); }
-.door-tint-sun.door-locked     { background: var(--ch-sun-soft); }
-.door-tint-forest.door-locked  { background: var(--ch-forest-soft); }
-.door-tint-fire.door-locked    { background: var(--ch-fire-soft); }
-.door-tint-wood.door-locked    { background: var(--ch-wood-soft); }
-.door-tint-berry.door-locked   { background: var(--ch-berry-soft); }
+/* Farb-Tönungen aus der Config – Soft-Töne jeweils mit Alpha */
+.door-tint-sky.door-locked    { background: rgba(225, 243, 251, 0.66); } /* sky-soft #E1F3FB */
+.door-tint-sun.door-locked     { background: rgba(255, 243, 206, 0.8); }  /* sun-soft #FFF3CE */
+.door-tint-forest.door-locked  { background: rgba(228, 242, 220, 0.78); } /* forest-soft #E4F2DC */
+.door-tint-fire.door-locked    { background: rgba(252, 227, 217, 0.66); } /* fire-soft #FCE3D9 */
+.door-tint-wood.door-locked    { background: rgba(243, 230, 215, 0.66); } /* wood-soft #F3E6D7 */
+.door-tint-berry.door-locked   { background: rgba(249, 225, 241, 0.66); } /* berry-soft #F9E1F1 */
 
 /* ---------- Hans' Advents-Wanderung (kompakt, unter dem Kalender) ---------- */
 .trail {
