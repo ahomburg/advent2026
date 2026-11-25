@@ -43,22 +43,22 @@
         <span class="ch-badge ch-badge-forest" id="advent-offen">0 / 24</span>
         <span class="ch-badge ch-badge-sun">⭐ 1 goldenes Türchen</span>
       </div>
-      <p class="ch-lead ch-mb-sm">Ein Türchen öffnet sich an seinem Tag im Dezember. Das heutige pulsiert gold.</p>
       <div class="ch-grid advent-grid" id="advent-tueren"><!-- wird von main.js gefüllt --></div>
 
-      <!-- Hans' Wanderung: kompakt unter dem Kalender -->
-      <div class="trail" aria-hidden="true">
-        <span class="trail-hans-wrap" id="advent-hans"><img class="ch-hans-walk" src="images/character/hans-walking.png" alt=""></span>
-        <span class="trail-fire">🔥</span>
-        <span class="trail-label" id="advent-trail-label">Start</span>
+      <!-- Hans' Wanderung: kompakt unter dem Kalender, in Kasten mit Hintergrundfarbe -->
+      <div class="ch-card ch-card-wood ch-mt-md">
+        <div class="trail" aria-hidden="true">
+          <span class="trail-hans-wrap" id="advent-hans"><img class="ch-hans-walk" src="images/character/hans-walking.png" alt=""></span>
+          <span class="trail-fire">🔥</span>
+          <span class="trail-label" id="advent-trail-label">Start</span>
+        </div>
+        <p class="ch-text-muted" style="margin-bottom:0;">Hans hüpft bei jedem geöffneten Türchen ein Stück weiter zum Lagerfeuer.</p>
       </div>
-      <p class="ch-text-muted ch-mb-sm">Hans hüpft bei jedem geöffneten Türchen ein Stück weiter zum Lagerfeuer.</p>
     </section>
 
     <!-- Sammelalbum -->
     <section id="sammelalbum" class="ch-mt-lg">
       <h2 class="ch-h2">Dein <em>Sammelalbum</em></h2>
-      <p class="ch-lead ch-mb-sm">Jedes geöffnete Türchen schenkt dir einen Sticker. Sammle alle 24!</p>
       <div class="ch-card">
         <div class="ch-grid advent-grid" id="advent-sticker"><!-- wird von main.js gefüllt --></div>
         <div class="ch-mt-md ch-text-center" id="advent-finale-zone" style="display:none;">

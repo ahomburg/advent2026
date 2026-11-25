@@ -63,15 +63,17 @@ body.ch-body.advent-body {
 .door:active { transform: translateY(8px); box-shadow: 0 0 0 rgba(34, 51, 59, 0.85); }
 .door:focus-visible { outline: 3px solid var(--ch-sun); outline-offset: 2px; }
 
-.door .door-emoji { font-size: 1.6rem; line-height: 1; }
-.door .door-lock { font-size: 1.1rem; line-height: 1; }
+/* Die Türchen-Nummer: groß, handgeschrieben (Caveat) und leicht schief */
 .door .door-num {
-  position: absolute;
-  top: 4px;
-  left: 8px;
-  font-size: 0.8rem;
-  color: var(--ch-night-soft);
+  font-family: var(--ch-font-hand);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--ch-night);
+  transform: rotate(-3deg);
 }
+.door .door-emoji { font-size: 1.25rem; line-height: 1; }
+.door .door-lock { font-size: 1.05rem; line-height: 1; }
 
 /* Noch verschlossen (wood-soft #F3E6D7 mit Alpha) */
 .door-locked {
