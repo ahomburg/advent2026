@@ -112,7 +112,7 @@
     tuerchen.push(Object.assign({
       nummer: i + 1, typ: 'witz', titel: 'Türchen ' + (i + 1),
       emoji: '🎁', sticker: '🎁', text: '', url: '', urlText: '',
-      frage: '', antwort: '', hansSpruch: '', farbe: '', video: ''
+      frage: '', antwort: '', hansSpruch: '', farbe: '', video: '', spiel: ''
     }, t, { nummer: t.nummer || i + 1 }));
   }
   const byNummer = {};
@@ -441,12 +441,20 @@
     }
 
     const link = el('advent-modal-link');
-    if (t.url) {
+    if (t.typ === 'spiel' && t.spiel) {
+      /* Eingebettetes Spiel: Button öffnet das Spiel-Overlay (iframe) statt zu verlinken */
+      link.href = t.spiel;
+      link.textContent = (t.urlText || '▶ Jetzt spielen');
+      link.style.display = '';
+      link.onclick = function (e) { e.preventDefault(); spielOeffnen(t); };
+    } else if (t.url) {
       link.href = t.url;
       link.textContent = (t.urlText || 'Auf geht\'s!') + ' ↗';
       link.style.display = '';
+      link.onclick = null;
     } else {
       link.style.display = 'none';
+      link.onclick = null;
     }
 
     const raetsel = el('advent-modal-raetsel');
@@ -483,8 +491,28 @@
     this.textContent = sichtbar ? 'Lösung verstecken' : 'Lösung anzeigen';
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { modalSchliessen(); finaleSchliessen(); }
+    if (e.key === 'Escape') { spielSchliessen(); modalSchliessen(); finaleSchliessen(); }
   });
+
+  /* ---------- Spiel-Overlay (eingebettete Spiele, z. B. games/hans-and-run) ---------- */
+
+  const gameOverlay = el('advent-game-overlay');
+  const gameIframe = el('advent-game-iframe');
+
+  function spielOeffnen(t) {
+    el('advent-game-titel').textContent = (t.emoji || '🎮') + ' ' + (t.titel || 'Spiel');
+    gameIframe.src = t.spiel;
+    gameOverlay.classList.add('advent-visible');
+  }
+
+  function spielSchliessen() {
+    if (!gameOverlay.classList.contains('advent-visible')) return;
+    gameOverlay.classList.remove('advent-visible');
+    gameIframe.src = 'about:blank'; /* lädt das Spiel neu und stoppt Sound */
+  }
+
+  el('advent-game-close').addEventListener('click', spielSchliessen);
+  gameOverlay.addEventListener('click', function (e) { if (e.target === gameOverlay) spielSchliessen(); });
 
   /* ---------- Finale ---------- */
 

@@ -119,6 +119,17 @@
     </div>
   </div>
 
+  <!-- Spiel-Overlay (eingebettete Spiele, z. B. Hans&Run hinter Tür 1) -->
+  <div class="advent-overlay advent-game-overlay" id="advent-game-overlay" role="dialog" aria-modal="true" aria-label="Spiel">
+    <div class="advent-game-frame">
+      <div class="advent-game-bar">
+        <span class="ch-badge ch-badge-forest" id="advent-game-titel">🎮 Spiel</span>
+        <button class="ch-btn ch-btn-ghost ch-btn-sm" id="advent-game-close" type="button" aria-label="Spiel schließen und zurück zum Kalender">✖ Zurück zum Kalender</button>
+      </div>
+      <iframe id="advent-game-iframe" class="advent-game-iframe" title="Spiel" src="about:blank"></iframe>
+    </div>
+  </div>
+
   <!-- Finale-Overlay -->
   <div class="advent-overlay" id="advent-finale-overlay" role="dialog" aria-modal="true" aria-labelledby="advent-finale-titel">
     <div class="advent-modal ch-card-fire" style="text-align:center;">

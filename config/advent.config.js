@@ -47,15 +47,18 @@ window.ADVENT_CONFIG = {
   ],
 
   /* Die 24 Türchen. "nummer" = Tag im Dezember (1–24).
-     typ: "link" (externer Link) | "raetsel" (Frage + Antwort)
-          | "witz" (Text) | "aktion" (Mitmach-Aktion ohne Link)
+     typ: "link" (externer Link) | "spiel" (eingebettetes Spiel, z. B. games/hans-and-run)
+          | "raetsel" (Frage + Antwort) | "witz" (Text) | "aktion" (Mitmach-Aktion ohne Link)
      Pflicht: nummer, titel, typ, emoji, sticker
-     Optional: url + urlText, text, frage + antwort, hansSpruch, farbe
+     Optional: url + urlText, spiel (Pfad zur Spiel-HTML), text,
+               frage + antwort, hansSpruch, farbe
      farbe: "sun" | "sky" | "forest" | "fire" | "wood" | "berry" */
   tuerchen: [
-    { nummer: 1,  typ: "link",   titel: "Spiele-Paradies",        emoji: "🎮", sticker: "🚐", farbe: "forest",
-      url: "https://poki.com", urlText: "Zu Poki spielen",
-      text: "Über 100 kostenlose Browsergames – such dir eins aus!" },
+    { nummer: 1,  typ: "spiel",  titel: "Hans&Run – das Camper-Spiel", emoji: "🎮", sticker: "🏃", farbe: "forest",
+      spiel: "games/hans-and-run/index.html",
+      urlText: "▶ Hans&Run spielen",
+      text: "Hans' eigenes Jump'n'Run – direkt hier im Türchen: lauf, spring, sammle Münzen und rette das Zelt!",
+      hansSpruch: "Zelt auf, Lächeln an – und losgerannt!" },
 
     { nummer: 2,  typ: "video",  titel: "Hans' Weihnachtslied 🎵", emoji: "🎵", sticker: "🎵", farbe: "sun",
       video: "assets/Weihnachten_mit_Camper_Hans.mp4",

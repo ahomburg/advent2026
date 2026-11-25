@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Hans&amp;Run</title>
+<link rel="stylesheet" href="css/camper-hans.css">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="images/logos/logo-hans-emblem.png">
+</head>
+<body class="ch-body">
+  <div id="game-wrap">
+    <canvas id="game"></canvas>
+
+    <!-- HUD -->
+    <div id="hud">
+      <div class="hud-left">
+        <div class="hud-item" id="hud-score"> 0</div>
+        <div class="hud-item" id="hud-coins"> 0</div>
+      </div>
+      <div class="hud-center" id="hud-level">Level 1</div>
+      <div class="hud-right">
+        <div class="hud-item" id="hud-time"> 0:00</div>
+        <div class="hud-item" id="hud-lives">x 3</div>
+      </div>
+    </div>
+    <div id="powerbar"></div>
+
+    <!-- Debug: Level-Auswahl (Taste L oder URL ?debug=1) -->
+    <div id="debug-panel" class="hidden">
+      <b>Debug: Level waehlen</b>
+      <div class="hint">Taste L: Panel zu/auf</div>
+      <div id="debug-levels"></div>
+    </div>
+
+    <!-- Touch controls -->
+    <div id="touch" class="hidden">
+      <div class="touch-side">
+        <button class="tbtn" id="btn-left" aria-label="Links">&#9664;</button>
+        <button class="tbtn" id="btn-right" aria-label="Rechts">&#9654;</button>
+      </div>
+      <div class="touch-side">
+        <button class="tbtn big" id="btn-jump" aria-label="Springen">&#8679;</button>
+      </div>
+    </div>
+
+    <!-- Overlays / Menues im Camper-Hans-Stil -->
+    <div id="overlay" class="overlay">
+      <div class="panel" id="panel-start">
+        <span class="ch-sticker ch-float"><img src="images/logos/logo-hans-emblem.png" alt="Camper Hans Logo" class="mascot"></span>
+        <h1 class="ch-h1">Hans<em>&amp;</em>Run</h1>
+        <p class="subtitle">Zelt auf, L&auml;cheln an — ein Jump'n'Run mit Hans!</p>
+        <div class="badge-row">
+          <span class="ch-badge ch-badge-forest">4 Level</span>
+          <span class="ch-badge ch-badge-berry">5 Power-ups</span>
+          <span class="ch-badge">Camping-Bonus</span>
+        </div>
+        <div class="ch-card ch-card-sun ch-card-tight controls-hint">
+          <div class="key-row"><span class="key">A</span><span class="key">D</span> oder <span class="key">&#8592;</span><span class="key">&#8594;</span> Laufen</div>
+          <div class="key-row"><span class="key">Leertaste</span> / <span class="key">W</span> Springen (l&#228;nger dr&#252;cken = h&#246;her)</div>
+          <div class="key-row"><span class="key">Shift</span> Sprint &nbsp;&middot;&nbsp; <span class="key">P</span> Pause &nbsp;&middot;&nbsp; <span class="key">M</span> Ton</div>
+          <div class="key-row">Gamepad? Einfach anschlie&szlig;en: <span class="key">A</span>/<span class="key">Stick</span> Laufen &amp; Springen, <span class="key">X</span> Sprint, <span class="key">Start</span> Pause</div>
+          <div class="key-row">Still stehen = Camping-Bonus (+25/sek)</div>
+        </div>
+        <button class="ch-btn ch-btn-primary ch-btn-lg" id="btn-start">Los geht's!</button>
+        <p class="ch-hand best" id="best-score"></p>
+      </div>
+
+      <div class="panel hidden" id="panel-pause">
+        <h2 class="ch-h2">Zelt-Pause</h2>
+        <p class="ch-hand">Kaffee holen — Hans wartet am Lagerfeuer!</p>
+        <button class="ch-btn ch-btn-primary" id="btn-resume">Weiter</button>
+        <button class="ch-btn ch-btn-sky" id="btn-restart-pause">Level neu aufbauen</button>
+        <button class="ch-btn ch-btn-ghost" id="btn-quit">Zur&#252;ck zum Titel</button>
+      </div>
+
+      <div class="panel hidden" id="panel-complete">
+        <h2 class="ch-h2" id="complete-title">Level geschafft!</h2>
+        <p class="ch-hand">Zeit f&#252;r ein Stockbrot.</p>
+        <div class="stats" id="complete-stats"></div>
+        <button class="ch-btn ch-btn-primary" id="btn-next">Weiter geht's</button>
+      </div>
+
+      <div class="panel hidden" id="panel-gameover">
+        <h2 class="ch-h2">Ups — Zelt umgefallen!</h2>
+        <p class="ch-hand">Kein Problem, Hans baut es wieder auf.</p>
+        <div class="stats" id="gameover-stats"></div>
+        <button class="ch-btn ch-btn-primary" id="btn-tryagain">Nochmal!</button>
+        <button class="ch-btn ch-btn-ghost" id="btn-quit2">Zur&#252;ck zum Titel</button>
+      </div>
+
+      <div class="panel hidden" id="panel-win">
+        <span class="ch-sticker ch-sticker-right ch-float"><img src="Hans_mashmellow.png" alt="Hans mit Marshmallow" class="mascot"></span>
+        <h2 class="ch-h2">Ferien komplett!</h2>
+        <p class="ch-hand">Bis bald am Lagerfeuer! — Hans</p>
+        <div class="stats" id="win-stats"></div>
+        <button class="ch-btn ch-btn-primary" id="btn-win-restart">Von vorn</button>
+      </div>
+    </div>
+
+    <div id="mute-indicator" class="hidden">&#128263; Ton aus</div>
+    <div id="toasts"></div>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

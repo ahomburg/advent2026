@@ -25,10 +25,11 @@ Pro Türchen (1–24) kann man definieren:
 | Feld | Bedeutung |
 |---|---|
 | `nummer` | Tag im Dezember (1–24) |
-| `typ` | `"link"` (externer Link), `"video"` (lokales Video aus `assets/`), `"raetsel"` (Frage+Lösung), `"witz"` (Text), `"aktion"` (Mitmach-Aufgabe) |
+| `typ` | `"link"` (externer Link), `"video"` (lokales Video aus `assets/`), `"spiel"` (eingebettetes Spiel aus `games/`), `"raetsel"` (Frage+Lösung), `"witz"` (Text), `"aktion"` (Mitmach-Aufgabe) |
 | `titel`, `emoji`, `sticker` | Anzeige im Türchen und Sammelalbum |
 | `url` + `urlText` | Link zum Goodie (Game, Video, Rätsel-Seite …) – bei `typ: "link"` |
 | `video` | Pfad zu einer lokalen Videodatei, z. B. `"assets/Weihnachten_mit_Camper_Hans.mp4"` – bei `typ: "video"` |
+| `spiel` | Pfad zu einer lokalen Spiel-Seite, z. B. `"games/hans-and-run/index.html"` – bei `typ: "spiel"` wird das Spiel in einem Vollbild-Overlay (iframe) geöffnet. Der Button-Text kommt aus `urlText` |
 | `frage` + `antwort` | Eigenes Rätsel – bei `typ: "raetsel"` |
 | `text` | Erklärtext im Türchen |
 | `hansSpruch` | Optional: Hans' persönlicher Spruch für dieses Türchen |
@@ -75,6 +76,8 @@ advent2026/
 │   └── advent.css              – projektspezifische Ergänzungen (nur --ch-* Tokens)
 ├── config/
 │   └── advent.config.js        – CONFIG: hier die Goodies/Links eintragen
+├── games/
+│   └── hans-and-run/           – komplettes Spiel (eigenständig lauffähig, wird per iframe bei `typ: "spiel"` eingebettet)
 ├── images/                     – Logos, Hans-Figuren, Hintergründe (aus der CI)
 └── README.md
 ```
