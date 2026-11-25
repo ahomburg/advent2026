@@ -25,8 +25,12 @@ body.ch-body.advent-body {
   align-items: center;
   gap: var(--ch-space-xs);
   flex-wrap: wrap;
+  margin-bottom: var(--ch-space-sm);
 }
 .advent-section-head .ch-h2 { margin-bottom: 0; }
+
+/* Anker-Sprünge: Abschnitte sollen nicht unter dem sticky Header verschwinden */
+#kalender, #sammelalbum { scroll-margin-top: 90px; }
 
 /* ---------- Türchen-Raster ---------- */
 .advent-grid {
