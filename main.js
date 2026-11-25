@@ -112,7 +112,7 @@
     tuerchen.push(Object.assign({
       nummer: i + 1, typ: 'witz', titel: 'Türchen ' + (i + 1),
       emoji: '🎁', sticker: '🎁', text: '', url: '', urlText: '',
-      frage: '', antwort: '', hansSpruch: '', farbe: ''
+      frage: '', antwort: '', hansSpruch: '', farbe: '', video: ''
     }, t, { nummer: t.nummer || i + 1 }));
   }
   const byNummer = {};
@@ -427,6 +427,19 @@
     badge.textContent = (t.nummer === golden ? '⭐ Goldenes Türchen' : 'Türchen ' + t.nummer);
     el('advent-modal-text').textContent = nameEinsetzen(t.text || '');
 
+    /* Lokales Video (z. B. assets/...) direkt im Modal abspielen */
+    const videoWrap = el('advent-modal-video-wrap');
+    const video = el('advent-modal-video');
+    if (t.typ === 'video' && t.video) {
+      videoWrap.style.display = '';
+      if (video.getAttribute('src') !== t.video) video.src = t.video;
+      const p = video.play();
+      if (p && p.catch) p.catch(function () { /* Autoplay blockiert – Nutzer klickt Play */ });
+    } else {
+      videoWrap.style.display = 'none';
+      video.pause();
+    }
+
     const link = el('advent-modal-link');
     if (t.url) {
       link.href = t.url;
@@ -455,7 +468,11 @@
     overlay.classList.add('advent-visible');
   }
 
-  function modalSchliessen() { overlay.classList.remove('advent-visible'); }
+  function modalSchliessen() {
+    overlay.classList.remove('advent-visible');
+    const video = el('advent-modal-video');
+    if (video) video.pause();
+  }
 
   el('advent-modal-close').addEventListener('click', modalSchliessen);
   el('advent-modal-ok').addEventListener('click', modalSchliessen);

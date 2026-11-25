@@ -25,9 +25,10 @@ Pro Türchen (1–24) kann man definieren:
 | Feld | Bedeutung |
 |---|---|
 | `nummer` | Tag im Dezember (1–24) |
-| `typ` | `"link"` (externer Link), `"raetsel"` (Frage+Lösung), `"witz"` (Text), `"aktion"` (Mitmach-Aufgabe) |
+| `typ` | `"link"` (externer Link), `"video"` (lokales Video aus `assets/`), `"raetsel"` (Frage+Lösung), `"witz"` (Text), `"aktion"` (Mitmach-Aufgabe) |
 | `titel`, `emoji`, `sticker` | Anzeige im Türchen und Sammelalbum |
 | `url` + `urlText` | Link zum Goodie (Game, Video, Rätsel-Seite …) – bei `typ: "link"` |
+| `video` | Pfad zu einer lokalen Videodatei, z. B. `"assets/Weihnachten_mit_Camper_Hans.mp4"` – bei `typ: "video"` |
 | `frage` + `antwort` | Eigenes Rätsel – bei `typ: "raetsel"` |
 | `text` | Erklärtext im Türchen |
 | `hansSpruch` | Optional: Hans' persönlicher Spruch für dieses Türchen |

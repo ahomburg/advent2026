@@ -57,9 +57,9 @@ window.ADVENT_CONFIG = {
       url: "https://poki.com", urlText: "Zu Poki spielen",
       text: "Über 100 kostenlose Browsergames – such dir eins aus!" },
 
-    { nummer: 2,  typ: "raetsel", titel: "Hans' kniffliges Rätsel", emoji: "🧩", sticker: "🧭",
-      frage: "Was wird nasser, je mehr es trocknet?",
-      antwort: "Das Handtuch!" },
+    { nummer: 2,  typ: "video",  titel: "Hans' Weihnachtslied 🎵", emoji: "🎵", sticker: "🎵", farbe: "sun",
+      video: "assets/Weihnachten_mit_Camper_Hans.mp4",
+      text: "Das phantastische Camper-Hans-Weihnachtslied – spielt direkt hier im Türchen!" },
 
     { nummer: 3,  typ: "witz",   titel: "Der sprechende Muffin",  emoji: "😂", sticker: "🍪", farbe: "sun",
       text: "Treffen sich zwei Muffins im Ofen. Sagt das eine: „Puh, ist das heiß hier!“ Sagt das andere: „Hilfe, ein sprechendes Muffin!“" },

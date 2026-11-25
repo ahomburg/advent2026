@@ -221,6 +221,16 @@ body.ch-body.advent-body {
 .raetsel-loesung { display: none; }
 .raetsel-loesung.raetsel-visible { display: block; }
 
+/* Lokales Video im Modal (Sticker-Rahmen wie Spielflächen) */
+.advent-video {
+  display: block;
+  width: 100%;
+  background: var(--ch-night);
+  border: 3px solid var(--ch-night);
+  border-radius: var(--ch-radius-lg);
+  box-shadow: var(--ch-shadow-soft);
+}
+
 /* ---------- Toast (Hans meldet sich) ---------- */
 .advent-toast {
   position: fixed;
