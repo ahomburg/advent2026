@@ -23,7 +23,7 @@
       </nav>
       <div style="display:flex; gap: var(--ch-space-2xs);">
         <button id="advent-sound" class="ch-btn ch-btn-ghost ch-btn-sm" type="button" aria-label="Ton an/aus">🔊 Ton</button>
-        <button id="advent-schnee-btn" class="ch-btn ch-btn-ghost ch-btn-sm" type="button" aria-label="Schnee an/aus">❄️ Schnee</button>
+        <button id="advent-schnee-btn" class="ch-btn ch-btn-ghost ch-btn-sm" type="button" aria-label="Schnee an/aus">❄️ Schnee an</button>
       </div>
     </div>
   </header>
@@ -49,10 +49,10 @@
       <div class="ch-card ch-card-wood ch-mt-md">
         <div class="trail" aria-hidden="true">
           <span class="trail-hans-wrap" id="advent-hans"><img class="ch-hans-walk" src="images/character/hans-walking.png" alt=""></span>
-          <span class="trail-fire">🔥</span>
+          <span class="trail-fire">🎄</span>
           <span class="trail-label" id="advent-trail-label">Start</span>
         </div>
-        <p class="ch-text-muted" style="margin-bottom:0;">Hans hüpft bei jedem geöffneten Türchen ein Stück weiter zum Lagerfeuer.</p>
+        <p class="ch-text-muted" id="advent-countdown" style="margin-bottom:0;">Hans freut sich schon auf Weihnachten!</p>
       </div>
     </section>
 
@@ -119,7 +119,7 @@
     </div>
   </div>
 
-  <!-- Spiel-Overlay (eingebettete Spiele, z. B. Hans&Run hinter Tür 1) -->
+  <!-- Spiel-Overlay (eingebettete Spiele, z. B. Hans 'n Run – X-mas Edition hinter Tür 1) -->
   <div class="advent-overlay advent-game-overlay" id="advent-game-overlay" role="dialog" aria-modal="true" aria-label="Spiel">
     <div class="advent-game-frame">
       <div class="advent-game-bar">

@@ -48,6 +48,13 @@
     return Math.max(1, Math.ceil((start - heute) / 86400000));
   }
 
+  /* Tage bis Heiligabend (24.12.) im Zieljahr; <= 0 bedeutet: Fest ist da/ vorbei */
+  function tageBisFest(config, heute) {
+    const jahr = zielJahr(config, heute);
+    const fest = new Date(jahr, (config.monat || 12) - 1, 24, 0, 0, 0, 0);
+    return Math.ceil((fest - heute) / 86400000);
+  }
+
   function goldenTuerchen(config, fallbackSeed) {
     if (config && config.goldenTuerchen) return config.goldenTuerchen;
     const rnd = mulberry32(fallbackSeed || 1);
@@ -65,7 +72,7 @@
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
       mulberry32, shuffle, zielJahr, tuerchenDatum,
-      istOffen, tageBis, goldenTuerchen, parseDatumOverride
+      istOffen, tageBis, tageBisFest, goldenTuerchen, parseDatumOverride
     };
   }
 
@@ -91,16 +98,17 @@
         return {
           offen: Array.isArray(s.offen) ? s.offen : [],
           sound: s.sound !== false,
-          schnee: s.schnee === true,
+          // ab v2 ist Schnee per Default an; alte Staende (ohne v) hatten default aus
+          schnee: s.v === 2 ? s.schnee === true : true,
           finaleGesehen: s.finaleGesehen === true
         };
       }
     } catch (e) { /* Speicher nicht verfügbar – egal, wir merken es im RAM */ }
-    return { offen: [], sound: true, schnee: false, finaleGesehen: false };
+    return { offen: [], sound: true, schnee: true, finaleGesehen: false };
   }
 
   function saveState() {
-    try { window.localStorage.setItem(storageKey, JSON.stringify(state)); } catch (e) { /* egal */ }
+    try { window.localStorage.setItem(storageKey, JSON.stringify(Object.assign({ v: 2 }, state))); } catch (e) { /* egal */ }
   }
 
   /* ---------- Config normalisieren ---------- */
@@ -348,7 +356,7 @@
     const label = el('advent-trail-label');
     hans.style.left = (f * 100) + '%';
     label.style.left = (f * 100) + '%';
-    label.textContent = count === 0 ? 'Start' : (count === TUEREN_ANZAHL ? 'Lagerfeuer! 🔥' : 'Türchen ' + count + ' / 24');
+    label.textContent = count === 0 ? 'Start' : (count === TUEREN_ANZAHL ? 'Weihnachtsbaum! 🎄' : 'Türchen ' + count + ' / 24');
 
     el('advent-finale-zone').style.display = count === TUEREN_ANZAHL ? 'block' : 'none';
   }
@@ -375,6 +383,13 @@
       : 'Hans sagt: Vorfreude ist die schönste Freude!';
     el('advent-sound').textContent = state.sound ? '🔊 Ton an' : '🔇 Ton aus';
     el('advent-schnee-btn').textContent = state.schnee ? '❄️ Schnee an' : '❄️ Schnee aus';
+
+    const festTage = tageBisFest(config, heute);
+    el('advent-countdown').textContent = festTage > 1
+      ? 'Hans freut sich schon auf Weihnachten. Nur noch ' + festTage + ' Tage bis zum Fest!'
+      : festTage === 1
+        ? 'Hans freut sich schon auf Weihnachten. Nur noch 1 Tag bis zum Fest!'
+        : 'Hans wünscht frohe Weihnachten! 🎄';
   }
 
   function renderAll() {

@@ -1,15 +1,18 @@
-# Hans & Run
+# Hans 'n Run – X-mas Edition
 
-Ein Jump'n'Run mit Hans — Zelt auf, Lächeln an!
+Ein weihnachtliches Jump'n'Run mit Hans — Zelt auf, Lächeln an! ❄️
 
 Hans ist Camper, und deshalb gilt: Wer rastet, der rostet **nicht** — sondern sammelt
-Camping-Bonus. Lauf, spring und stürze dich durch drei Level, stampfe Gegner weg,
-sammle Münzen und Power-ups — und wart zwischendurch einfach mal am Lagerfeuer.
+Camping-Bonus. Lauf, spring und stürze dich durch drei verschneite Level, stampfe
+Schneemänner weg, sammle Glocken und Power-ups — und wart zwischendurch einfach mal
+am Lagerfeuer unter dem geschmückten Weihnachtsbaum.
 
 ## Features
 
-- **4 Level:** Wiese, Nachtlauf, Himmelspfad und Manhattan
-- **5 Power-ups:** Schild, Doppelsprung, Turbo und mehr
+- **3 Level:** Winterwiese, Nacht im Schnee und City X-mas (verschneite Manhattan-Skyline)
+- **Winter-Look:** Schneedecke auf Boden, Dächern und Bergen, Eiszapfen statt Stacheln, Geschenke statt Kisten, Lichterketten an den Zelten — und Schneefall, mal stärker, mal schwächer (Böen)
+- **Weihnachtliche Gegner:** Schneemänner, stachelige Christbaumkugeln und Vögel mit Nikolausmütze
+- **5 Power-ups:** Schild, Doppelsprung, Turbo-Schlitten und mehr
 - **Camping-Bonus:** Still stehen lohnt sich — Hans macht Urlaub am Lagerfeuer (+25 Punkte/Sek.)
 - **Combo-System:** Gegner in Serie stampfen bringt Extra-Punkte
 - **Touch-Unterstützung:** Auf Handys und Tablets erscheinen Buttons für links, rechts und springen

@@ -54,11 +54,11 @@ window.ADVENT_CONFIG = {
                frage + antwort, hansSpruch, farbe
      farbe: "sun" | "sky" | "forest" | "fire" | "wood" | "berry" */
   tuerchen: [
-    { nummer: 1,  typ: "spiel",  titel: "Hans&Run – das Camper-Spiel", emoji: "🎮", sticker: "🏃", farbe: "forest",
+    { nummer: 1,  typ: "spiel",  titel: "Hans 'n Run – X-mas Edition", emoji: "🎮", sticker: "❄️", farbe: "forest",
       spiel: "games/hans-and-run/index.html",
-      urlText: "▶ Hans&Run spielen",
-      text: "Hans' eigenes Jump'n'Run – direkt hier im Türchen: lauf, spring, sammle Münzen und rette das Zelt!",
-      hansSpruch: "Zelt auf, Lächeln an – und losgerannt!" },
+      urlText: "▶ X-mas Edition spielen",
+      text: "Hans' weihnachtliches Jump'n'Run – direkt hier im Türchen: lauf durch den Schnee, sammle Glocken, weich den Eiszapfen aus und rette das Zelt!",
+      hansSpruch: "Zelt auf, Lächeln an – auch bei Schnee!" },
 
     { nummer: 2,  typ: "video",  titel: "Hans' Weihnachtslied 🎵", emoji: "🎵", sticker: "🎵", farbe: "sun",
       video: "assets/Weihnachten_mit_Camper_Hans.mp4",

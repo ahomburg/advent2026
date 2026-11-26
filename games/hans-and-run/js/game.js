@@ -1,5 +1,6 @@
 /* =====================================================================
-   HANS & RUN — modernes Jump'n'Run
+   HANS 'N RUN — X-MAS EDITION
+   Weihnachtliches Jump'n'Run: Schnee, Eiszapfen, Geschenke, Schneemaenner
    Engine: Canvas 2D, Tile-Collision, Particles, Parallax, WebAudio, Touch
    ===================================================================== */
 "use strict";
@@ -297,14 +298,14 @@ const Sprites = {
 const ITEM_INFO = {
   shield: { dur: 9, icon: "⭐", label: "Schild", col: "#fbbf24" },
   wings: { dur: 12, icon: "🕊️", label: "Doppelsprung", col: "#a5f3fc" },
-  speed: { dur: 8, icon: "⚡", label: "Turbo", col: "#fde047" },
+  speed: { dur: 8, icon: "🛷", label: "Turbo-Schlitten", col: "#fde047" },
   magnet: { dur: 9, icon: "🧲", label: "Magnet", col: "#f472b6" },
   heart: { dur: 0, icon: "❤️", label: "Extraleben", col: "#ef4444" },
 };
 
 /* =====================================================================
-   LEVEL — Builder-DSL
-   # = Erde/Gras   B = Kiste   P = Plattform (durchspr.(bar))   ^ = Stacheln
+   LEVEL — Builder-DSL (X-Mas Edition)
+   # = Erde/Schnee   B = Geschenk   P = Plattform (durchspr.(bar))   ^ = Eiszapfen
    ===================================================================== */
 function buildLevel(def) {
   const W = def.width;
@@ -340,208 +341,161 @@ function buildLevel(def) {
 
 const LEVEL_DEFS = [
   {
-    name: "Wiese", width: 200, palette: {
-      skyA: "#5fb2ff", skyB: "#cfeaff",
-      hillNear: "#3f9e4d", hillFar: "#7cc47f", mount: "#4f7fae",
-      grass: "#3fa93f", dirt: "#8a5a34", dirtDark: "#6e452a",
-      cloud: "rgba(255,255,255,.9)", night: false,
+    // Winterwiese: klarer Wintertag, Schnee auf dem Boden, mal mehr mal weniger Schneefall
+    name: "Winterwiese", width: 200, palette: {
+      skyA: "#2f5aa8", skyB: "#b8d9f2",
+      hillNear: "#dfeaf6", hillFar: "#c3d8ee", mount: "#9db8d9",
+      grass: "#f2f7fd", dirt: "#7a6a58", dirtDark: "#5f5142",
+      cloud: "rgba(255,255,255,.92)", night: false, snow: 0.55,
     },
     build(a) {
-      a.ground(0, 28);
+      a.ground(0, 26);
       a.coinRow(6, 11, 5);
-      a.enemy(16, "walker"); a.enemy(23, "walker");
-      a.coinArc(29, 10, 4);                                  // Luecke 29-31
-      a.ground(32, 60);
-      a.plat(38, 11, 3); a.coinRow(38, 9, 3);
-      a.item(44, 11, "speed");
-      a.enemy(50, "walker"); a.enemy(55, "walker");
-      a.coinArc(61, 9, 4);                                   // Luecke 61-63
-      a.ground(64, 95);
-      a.checkpoint(66);
-      a.plat(70, 11, 3); a.coinRow(70, 9, 3);
-      a.item(76, 8, "wings");
-      a.flyer(80, 9);
-      a.spike(86, 3); a.plat(86, 11, 3); a.coinRow(86, 9, 3);
-      a.enemy(92, "walker");
-      a.coinArc(96, 10, 4);                                  // Luecke 96-98
-      a.ground(99, 130);
-      a.crate(104, 13, 2, 2); a.coinRow(104, 10, 2);
-      a.item(108, 11, "shield");
-      a.enemy(112, "walker"); a.enemy(117, "walker"); a.enemy(121, "walker");
-      a.item(114, 11, "magnet");
-      a.checkpoint(126);
-      a.coinArc(131, 10, 5);                                 // Luecke 131-135
-      a.ground(136, 160);
-      a.enemy(140, "spiker");
-      a.spike(145, 3); a.plat(145, 11, 3); a.coinRow(145, 9, 3);
-      a.item(152, 11, "heart");
-      a.enemy(150, "walker"); a.enemy(155, "walker");
-      a.coinArc(161, 9, 6);                                  // Luecke 161-165
-      a.plat(162, 12, 2);
-      a.ground(166, 199);
-      a.enemy(172, "walker"); a.enemy(178, "walker");
-      a.coinRow(174, 12, 6);
+      a.enemy(15, "walker"); a.enemy(22, "walker");
+      a.coinArc(28, 10, 4);                                  // Luecke 27-30
+      a.ground(31, 58);
+      a.plat(37, 11, 3); a.coinRow(37, 9, 3);
+      a.item(43, 11, "speed");
+      a.enemy(48, "walker"); a.enemy(53, "walker");
+      a.coinArc(60, 9, 4);                                   // Luecke 59-62
+      a.ground(63, 92);
+      a.checkpoint(65);
+      a.plat(69, 11, 3); a.coinRow(69, 9, 3);
+      a.item(75, 8, "wings");
+      a.flyer(79, 9);
+      a.spike(85, 3); a.plat(85, 11, 3); a.coinRow(85, 9, 3);
+      a.enemy(90, "walker");
+      a.coinArc(95, 10, 4);                                  // Luecke 94-97
+      a.ground(98, 128);
+      a.crate(103, 13, 2, 2); a.coinRow(103, 10, 2);
+      a.item(107, 11, "shield");
+      a.enemy(111, "walker"); a.enemy(116, "walker"); a.enemy(120, "walker");
+      a.item(113, 11, "magnet");
+      a.checkpoint(125);
+      a.coinArc(130, 10, 5);                                 // Luecke 129-133
+      a.ground(134, 158);
+      a.enemy(138, "spiker");
+      a.spike(143, 3); a.plat(143, 11, 3); a.coinRow(143, 9, 3);
+      a.enemy(148, "walker"); a.enemy(153, "walker");
+      a.item(151, 11, "heart");
+      a.coinArc(160, 9, 6);                                  // Luecke 159-163
+      a.plat(161, 12, 2);
+      a.ground(164, 199);
+      a.enemy(170, "walker"); a.enemy(177, "walker");
+      a.coinRow(172, 12, 6);
       a.goal(192);
     }
   },
   {
-    name: "Nachtlauf", width: 220, palette: {
-      skyA: "#0b1035", skyB: "#2a1f57",
-      hillNear: "#1d3f31", hillFar: "#2b5241", mount: "#241f52",
-      grass: "#2e8f57", dirt: "#4c3a55", dirtDark: "#3a2c41",
-      cloud: "rgba(140,160,255,.22)", night: true,
+    // Nacht im Schnee: sternklare Winternacht, Schneefall volle Kanne
+    name: "Nacht im Schnee", width: 220, palette: {
+      skyA: "#0a1030", skyB: "#27406e",
+      hillNear: "#22354f", hillFar: "#31486b", mount: "#1a2742",
+      grass: "#e9f1fa", dirt: "#443a52", dirtDark: "#342c40",
+      cloud: "rgba(200,215,255,.18)", night: true, snow: 1.0,
     },
     build(a) {
-      a.ground(0, 20);
-      a.enemy(12, "walker");
-      a.coinArc(21, 10, 5); a.plat(22, 11, 2);               // Luecke 21-24
-      a.ground(25, 48);
-      a.checkpoint(27);
-      a.spike(30, 2);
-      a.enemy(36, "spiker");
-      a.enemy(42, "walker");
-      a.checkpoint(46);
-      a.coinRow(49, 9, 8);
-      a.plat(50, 12, 2); a.plat(54, 10, 2); a.plat(58, 8, 2);// Bruecke 49-62
-      a.item(54, 8, "speed");
-      a.ground(63, 90); a.checkpoint(65);
-      a.crate(70, 13, 1, 2);
-      a.item(75, 12, "shield");
-      a.flyer(79, 9); a.spike(80, 2);
-      a.flyer(85, 8);
-      a.enemy(88, "walker");
-      a.coinArc(91, 10, 6);                                  // Luecke 91-95 (Sprint!)
-      a.ground(96, 120);
-      a.enemy(100, "walker"); a.enemy(106, "walker");
-      a.item(110, 11, "magnet");
-      a.spike(112, 2);
-      a.plat(115, 10, 3); a.item(116, 8, "heart"); a.coinRow(115, 8, 3);
-      a.enemy(118, "walker");
-      a.coinArc(121, 10, 5); a.flyer(123, 10);               // Luecke 121-124
-      a.ground(125, 150); a.checkpoint(127);
-      a.item(130, 12, "wings");
-      a.plat(133, 11, 2); a.plat(136, 8, 2); a.coinRow(136, 6, 2);
-      a.flyer(139, 6);
-      a.crate(142, 13, 2, 2);
-      a.enemy(146, "spiker"); a.enemy(149, "walker");
-      a.coinArc(151, 10, 11);
-      a.plat(153, 12, 2); a.plat(157, 10, 2);                // grosse Luecke 151-160
-      a.ground(161, 190); a.checkpoint(163);
-      a.enemy(168, "spiker");
-      a.spike(170, 3); a.plat(170, 11, 3); a.coinRow(170, 9, 3);
-      a.flyer(176, 9); a.enemy(180, "walker"); a.flyer(184, 8); a.enemy(186, "walker");
-      a.coinRow(177, 12, 8);
-      a.coinArc(191, 10, 5);                                 // Luecke 191-194
-      a.ground(195, 219);
-      a.item(198, 12, "speed");
-      a.enemy(202, "walker"); a.enemy(208, "walker"); a.flyer(212, 9);
+      a.ground(0, 19);
+      a.enemy(11, "walker");
+      a.coinArc(20, 10, 5); a.plat(21, 11, 2);               // Luecke 20-23
+      a.ground(24, 47);
+      a.checkpoint(26);
+      a.spike(29, 2);
+      a.enemy(35, "spiker");
+      a.enemy(41, "walker");
+      a.checkpoint(45);
+      a.coinRow(48, 9, 8);
+      a.plat(49, 12, 2); a.plat(53, 10, 2); a.plat(57, 8, 2);// Bruecke 48-61
+      a.item(53, 8, "speed");
+      a.ground(62, 89); a.checkpoint(64);
+      a.crate(69, 13, 1, 2);
+      a.item(74, 12, "shield");
+      a.flyer(78, 9); a.spike(79, 2);
+      a.flyer(84, 8);
+      a.enemy(87, "walker");
+      a.coinArc(90, 10, 6);                                  // Luecke 90-94 (Sprint!)
+      a.ground(95, 119);
+      a.enemy(99, "walker"); a.enemy(105, "walker");
+      a.item(109, 11, "magnet");
+      a.spike(111, 2);
+      a.plat(114, 10, 3); a.item(115, 8, "heart"); a.coinRow(114, 8, 3);
+      a.enemy(117, "walker");
+      a.coinArc(120, 10, 5); a.flyer(122, 10);               // Luecke 120-123
+      a.ground(124, 149); a.checkpoint(126);
+      a.item(129, 12, "wings");
+      a.plat(132, 11, 2); a.plat(135, 8, 2); a.coinRow(135, 6, 2);
+      a.flyer(138, 6);
+      a.crate(141, 13, 2, 2);
+      a.enemy(145, "spiker"); a.enemy(148, "walker");
+      a.coinArc(150, 10, 11);
+      a.plat(152, 12, 2); a.plat(156, 10, 2);                // grosse Luecke 150-159
+      a.ground(160, 189); a.checkpoint(162);
+      a.enemy(167, "spiker");
+      a.spike(169, 3); a.plat(169, 11, 3); a.coinRow(169, 9, 3);
+      a.flyer(175, 9); a.enemy(179, "walker"); a.flyer(183, 8); a.enemy(185, "walker");
+      a.coinRow(176, 12, 8);
+      a.coinArc(190, 10, 5);                                 // Luecke 190-193
+      a.ground(194, 219);
+      a.item(197, 12, "speed");
+      a.enemy(201, "walker"); a.enemy(207, "walker"); a.flyer(211, 9);
       a.goal(214);
     }
   },
   {
-    name: "Himmelspfad", width: 240, palette: {
-      skyA: "#ff9a5a", skyB: "#ffd9a0",
-      hillNear: "#b0557a", hillFar: "#7e4a86", mount: "#5f3a75",
-      grass: "#4fbf8f", dirt: "#9c6a4e", dirtDark: "#7d5038",
-      cloud: "rgba(255,235,215,.85)", night: false,
+    // Camper Hans in Manhattan zur Weihnachtszeit: verschneite Skyline, Lichter
+    // Luecken = Avenuen, Plattformen = Feuertreppen, Flyer = Voegel mit Nikolausmuetze.
+    name: "City X-mas", width: 230, palette: {
+      skyA: "#101c40", skyB: "#d98a6a",
+      hillNear: "#2e3950", hillFar: "#232f47", mount: "#141d33",
+      grass: "#eef2f7", dirt: "#4a5160", dirtDark: "#3a404c",
+      cloud: "rgba(255,200,170,.16)", night: true, city: true, snow: 0.7,
     },
     build(a) {
-      a.ground(0, 16);
-      a.enemy(10, "walker");
-      a.plat(20, 12, 3); a.coinRow(20, 10, 3);
-      a.plat(23, 11, 2);
-      a.plat(26, 10, 3); a.coinRow(26, 8, 3);
-      a.plat(32, 12, 3); a.flyer(30, 10);
-      a.item(34, 10, "wings");
-      a.ground(38, 52); a.checkpoint(40); a.enemy(46, "walker");
-      a.plat(56, 11, 2); a.plat(61, 9, 2); a.plat(66, 11, 2); a.plat(71, 9, 2);
-      a.coinRow(56, 9, 2); a.coinRow(61, 7, 2); a.coinRow(66, 9, 2); a.coinRow(71, 7, 2);
-      a.flyer(58, 9); a.flyer(68, 9);
-      a.ground(75, 88);
-      a.checkpoint(77);
-      a.item(78, 12, "magnet");
-      a.enemy(82, "spiker");
-      a.plat(90, 13, 2);                                      // Trittstein
-      a.plat(92, 10, 3); a.item(93, 8, "shield"); a.coinRow(92, 8, 3);
-      a.plat(98, 8, 3); a.coinRow(98, 6, 3);
-      a.plat(104, 9, 3); a.coinRow(104, 7, 3);
-      a.flyer(106, 11);
-      a.ground(112, 128); a.checkpoint(114);
-      a.enemy(120, "walker"); a.enemy(124, "walker"); a.spike(126, 2);
-      a.plat(132, 12, 2); a.plat(137, 9, 2); a.plat(142, 12, 2); a.plat(147, 9, 2);
-      a.coinArc(131, 10, 20);
-      a.flyer(135, 10); a.flyer(145, 10);
-      a.ground(150, 166); a.checkpoint(152);
-      a.item(154, 12, "heart");
-      a.enemy(158, "spiker");
-      a.item(160, 12, "speed");
-      a.plat(170, 11, 3); a.plat(176, 8, 3); a.plat(182, 11, 2);
-      a.coinRow(176, 6, 3); a.coinRow(182, 9, 2);
-      a.flyer(172, 9); a.flyer(178, 6);
-      a.plat(186, 9, 2); a.plat(191, 12, 2);
-      a.flyer(189, 10);
-      a.ground(196, 239); a.checkpoint(198);
-      a.enemy(204, "walker"); a.enemy(210, "walker"); a.enemy(216, "walker");
-      a.flyer(208, 10); a.flyer(214, 10); a.flyer(220, 10);
-      a.coinRow(203, 12, 4); a.coinRow(211, 11, 4); a.coinRow(219, 12, 4);
-      a.goal(232);
-    }
-  },
-  {
-    // Camper Hans in Manhattan: Blaue Stunde, Skyline-Silhouetten, Asphalt-Strassen.
-    // Luecken = Avenuen, Plattformen = Feuertreppen, Flyer = Tauben.
-    name: "Manhattan", width: 230, palette: {
-      skyA: "#12224e", skyB: "#ff9e6d",
-      hillNear: "#2e3950", hillFar: "#1f2940", mount: "#151d33",
-      grass: "#9aa3ad", dirt: "#5a6270", dirtDark: "#454c59",
-      cloud: "rgba(255,170,140,.18)", night: true, city: true,
-    },
-    build(a) {
-      a.ground(0, 22);
-      a.enemy(14, "walker");
+      a.ground(0, 21);
       a.coinRow(8, 11, 5);
-      a.plat(24, 12, 2); a.plat(27, 10, 2);          // 1. Avenue 23-28
-      a.coinRow(24, 10, 5);
-      a.ground(29, 48); a.checkpoint(31);
-      a.crate(35, 13, 2, 2); a.coinRow(35, 10, 2);
-      a.flyer(41, 9); a.enemy(45, "walker");
-      a.item(47, 11, "speed");
-      a.plat(50, 12, 2); a.plat(53, 10, 2);          // 2. Avenue 49-56
-      a.flyer(54, 8);
-      a.item(52, 12, "wings");
-      a.ground(57, 78); a.checkpoint(59);
-      a.spike(64, 3); a.plat(64, 11, 3); a.coinRow(64, 9, 3);
-      a.enemy(70, "spiker");
-      a.coinRow(72, 12, 4);
-      a.item(75, 11, "magnet");
-      a.coinArc(79, 10, 6);                          // 3. Avenue 79-84 (Sprint!)
-      a.plat(83, 12, 2);
-      a.ground(86, 108); a.checkpoint(88);
-      a.crate(92, 13, 1, 2); a.crate(96, 13, 2, 2); a.coinRow(92, 9, 8);
-      a.enemy(100, "walker"); a.enemy(104, "walker");
-      a.flyer(102, 8); a.flyer(106, 10);
-      a.item(107, 11, "heart");
-      a.plat(109, 11, 2); a.plat(113, 9, 2); a.plat(117, 11, 2);   // 4. Avenue 109-119
-      a.coinRow(110, 9, 2); a.coinRow(114, 7, 2); a.coinRow(118, 9, 2);
-      a.flyer(115, 7);
-      a.ground(120, 142); a.checkpoint(122);
-      a.spike(126, 4); a.plat(126, 11, 4); a.coinRow(126, 9, 4);
-      a.enemy(134, "spiker"); a.enemy(138, "walker");
-      a.item(140, 11, "shield");
-      a.coinArc(143, 10, 10);                        // Central-Park-Sprung 143-152
-      a.plat(145, 12, 2); a.plat(149, 10, 2); a.plat(153, 11, 2);
-      a.flyer(147, 9); a.flyer(152, 8);
-      a.ground(157, 180); a.checkpoint(159);
-      a.coinRow(162, 12, 6);
-      a.enemy(166, "walker"); a.enemy(170, "spiker");
-      a.flyer(174, 9); a.enemy(178, "walker");
-      a.coinRow(172, 10, 4);
-      a.plat(182, 12, 2); a.plat(186, 10, 2); a.plat(190, 12, 2);  // Finale-Avenues
-      a.flyer(184, 9); a.flyer(192, 9);
-      a.coinRow(182, 10, 2); a.coinRow(186, 8, 2); a.coinRow(190, 10, 2);
-      a.ground(193, 229); a.checkpoint(195);
-      a.enemy(198, "walker"); a.enemy(203, "spiker"); a.enemy(208, "walker");
-      a.item(201, 11, "speed");
+      a.enemy(13, "walker");
+      a.plat(23, 12, 2); a.plat(26, 10, 2);          // 1. Avenue 22-27
+      a.coinRow(23, 10, 5);
+      a.ground(28, 47); a.checkpoint(30);
+      a.crate(34, 13, 2, 2); a.coinRow(34, 10, 2);
+      a.flyer(40, 9); a.enemy(44, "walker");
+      a.item(46, 11, "speed");
+      a.plat(49, 12, 2); a.plat(52, 10, 2);          // 2. Avenue 48-55
+      a.flyer(53, 8);
+      a.item(51, 12, "wings");
+      a.ground(56, 77); a.checkpoint(58);
+      a.spike(63, 3); a.plat(63, 11, 3); a.coinRow(63, 9, 3);
+      a.enemy(69, "spiker");
+      a.coinRow(71, 12, 4);
+      a.item(74, 11, "magnet");
+      a.coinArc(78, 10, 6);                          // 3. Avenue 78-83 (Sprint!)
+      a.plat(82, 12, 2);
+      a.ground(85, 107); a.checkpoint(87);
+      a.crate(91, 13, 1, 2); a.crate(95, 13, 2, 2); a.coinRow(91, 9, 8);
+      a.enemy(99, "walker"); a.enemy(103, "walker");
+      a.flyer(101, 8); a.flyer(105, 10);
+      a.item(106, 11, "heart");
+      a.plat(108, 11, 2); a.plat(112, 9, 2); a.plat(116, 11, 2);   // 4. Avenue 108-118
+      a.coinRow(109, 9, 2); a.coinRow(113, 7, 2); a.coinRow(117, 9, 2);
+      a.flyer(114, 7);
+      a.ground(119, 141); a.checkpoint(121);
+      a.spike(125, 4); a.plat(125, 11, 4); a.coinRow(125, 9, 4);
+      a.enemy(133, "spiker"); a.enemy(137, "walker");
+      a.item(139, 11, "shield");
+      a.coinArc(142, 10, 10);                        // Central-Park-Sprung 142-151
+      a.plat(144, 12, 2); a.plat(148, 10, 2); a.plat(152, 11, 2);
+      a.flyer(146, 9); a.flyer(151, 8);
+      a.ground(156, 179); a.checkpoint(158);
+      a.coinRow(161, 12, 6);
+      a.enemy(165, "walker"); a.enemy(169, "spiker");
+      a.flyer(173, 9); a.enemy(177, "walker");
+      a.coinRow(171, 10, 4);
+      a.plat(181, 12, 2); a.plat(185, 10, 2); a.plat(189, 12, 2);  // Finale-Avenues
+      a.flyer(183, 9); a.flyer(191, 9);
+      a.coinRow(181, 10, 2); a.coinRow(185, 8, 2); a.coinRow(189, 10, 2);
+      a.ground(192, 229); a.checkpoint(194);
+      a.enemy(197, "walker"); a.enemy(202, "spiker"); a.enemy(207, "walker");
+      a.item(200, 11, "speed");
       a.goal(222);
     }
   }
@@ -781,7 +735,7 @@ function updatePlayer(dt) {
       c.active = true;
       p.spawnX = c.x - p.w / 2; p.spawnY = c.y - p.h - TILE;
       AudioSys.sCheck();
-      UI.toast("Zelt aufgeschlagen — Checkpoint!");
+      UI.toast("Lagerfeuer an — Checkpoint! 🎄");
       burst(c.x, c.y - 60, 18, ["#22d3ee", "#3b82f6", "#ffffff"]);
     }
   }
@@ -997,6 +951,47 @@ function dust(x, y, n) {
 const stars = Array.from({ length: 90 }, () => ({ x: Math.random(), y: Math.random() * .6, r: rnd(.5, 1.6), tw: Math.random() * 6 }));
 const clouds = Array.from({ length: 16 }, (_, i) => ({ x: i * 320 + rnd(0, 260), y: rnd(30, 260), s: rnd(.6, 1.4), spd: rnd(6, 16) }));
 
+/* Schneefall (Bildschirm-Raum): Je nach Level staerker, plus Boeen —
+   mal schneit es kraeftig, mal fast gar nicht. */
+const snowflakes = [];
+function newFlake(W, H, anywhere, y) {
+  const layer = Math.random() < 0.35 ? 1 : 0;          // 1 = vorne, groesser
+  return {
+    x: Math.random() * (W + 40) - 20,
+    y: y !== undefined ? y : (anywhere ? Math.random() * H : -8),
+    r: layer ? rnd(1.8, 3.2) : rnd(0.8, 1.8),
+    spd: rnd(40, 95) * (layer ? 1.25 : 0.8),
+    sway: rnd(0.8, 2.2), ph: Math.random() * TAU, layer,
+  };
+}
+function updateSnow(dt, W, H) {
+  const pal = Game.level ? Game.level.palette : LEVEL_DEFS[0].palette;
+  const base = pal.snow || 0;
+  if (base <= 0 || W <= 0) { snowflakes.length = 0; return; }
+  // Boee: zwei ueberlagerte Sinus — Schneefall kommt und geht
+  const gust = Math.max(0, Math.sin(Game.clock * 0.07) * .5 + Math.sin(Game.clock * 0.021 + 1.7) * .5);
+  const inten = base * (0.12 + 0.88 * gust);
+  const target = Math.floor(inten * 380);
+  while (snowflakes.length < target) snowflakes.push(newFlake(W, H, true));
+  if (snowflakes.length > target) snowflakes.length = target;
+  const wind = 26 * gust + Math.sin(Game.clock * 0.23) * 18;
+  for (const f of snowflakes) {
+    f.y += f.spd * dt;
+    f.x += (wind * (f.layer ? 1.3 : 0.7) + Math.sin(Game.clock * f.sway + f.ph) * 14) * dt;
+    if (f.y > H + 6) Object.assign(f, newFlake(W, H, false, -8));
+    if (f.x < -12) f.x = W + 10; else if (f.x > W + 12) f.x = -10;
+  }
+}
+function drawSnow(ctx, W, H) {
+  if (!snowflakes.length) return;
+  ctx.fillStyle = "#ffffff";
+  for (const f of snowflakes) {
+    ctx.globalAlpha = f.layer ? .95 : .5;
+    ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, TAU); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+}
+
 function render() {
   const cv = Game.canvas, ctx = Game.ctx;
   const W = cv.clientWidth, H = cv.clientHeight;
@@ -1034,6 +1029,10 @@ function render() {
     ctx.fillStyle = `rgba(255,70,70,${Math.min(.5, Game.respawnFlash * 1.5)})`;
     ctx.fillRect(0, 0, W, H);
   }
+
+  // --- Schneefall ganz vorne (Bildschirm-Raum) ---
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  drawSnow(ctx, W, H);
 }
 
 function drawBackground(ctx, W, H, scaleCss) {
@@ -1127,6 +1126,10 @@ function drawSkyline(ctx, W, H, off, yoff, col, baseFrac, winAlpha, size) {
     const bh = (60 + jh * 175) * K * size;
     const top = H * baseFrac - yoff - bh;
     ctx.fillRect(x, top, w, H - top + 40);
+    // Schneekappe auf dem Dach
+    ctx.fillStyle = "rgba(238,245,252,.95)";
+    ctx.fillRect(x, top, w, 5 * K * size);
+    ctx.fillStyle = col;
     // Fenster: grobes Raster, einzelne Lichter deterministisch verteilt
     const rows = Math.max(2, Math.floor(bh / (15 * K * size)));
     const cols = Math.max(2, Math.floor(w / (11 * K * size)));
@@ -1152,6 +1155,17 @@ function drawRidge(ctx, W, H, off, yoff, col, baseFrac, amp, tents) {
   ctx.lineTo(W + 12, H + 40);
   ctx.closePath();
   ctx.fill();
+
+  // Schneekappe entlang des Grats
+  ctx.strokeStyle = "rgba(244,248,255,.85)";
+  ctx.lineWidth = 6 * K;
+  ctx.lineCap = "round";
+  ctx.beginPath();
+  for (let x = -12; x <= W + 12; x += step) {
+    const y = f(x + off);
+    if (x === -12) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
 
   // Winzige Campingzelte als Schattensilhouetten auf dem Ruecken (nur fern)
   if (tents) {
@@ -1193,39 +1207,61 @@ function drawTiles(ctx, vw) {
         if ((tx * 7 + ty * 13) % 5 < 2) ctx.fillRect(X + 8, Y + 26, 7, 7);
         if ((tx * 11 + ty * 5) % 6 < 2) ctx.fillRect(X + 28, Y + 36, 9, 6);
         if (top) {
+          // Schneedecke
           ctx.fillStyle = pal.grass;
           ctx.fillRect(X, Y, TILE, 16);
-          ctx.fillStyle = "rgba(255,255,255,.22)";
+          ctx.fillStyle = "rgba(140,170,215,.35)";
           ctx.fillRect(X, Y, TILE, 5);
           ctx.fillStyle = pal.grass;
           ctx.beginPath();
           ctx.arc(X + 10, Y + 17, 5, 0, TAU); ctx.arc(X + 26, Y + 18, 6, 0, TAU); ctx.arc(X + 40, Y + 16, 4, 0, TAU);
           ctx.fill();
+          // Schneeglitzern
+          ctx.fillStyle = "rgba(255,255,255,.9)";
+          if ((tx * 13 + ty * 3) % 4 === 0) ctx.fillRect(X + 18, Y + 7, 3, 3);
+          if ((tx * 5 + ty * 17) % 6 === 0) ctx.fillRect(X + 34, Y + 10, 2.5, 2.5);
         }
       } else if (c === "B") {
-        ctx.fillStyle = "#b0773f";
+        // Geschenk mit Schleife + Schneekappe
+        const giftCols = ["#d64545", "#3f9d5a", "#e8a13a", "#4f7fd6", "#b14e8d"];
+        ctx.fillStyle = giftCols[(tx * 3 + ty * 7) % giftCols.length];
         ctx.fillRect(X + 1, Y + 1, TILE - 2, TILE - 2);
-        ctx.strokeStyle = "#7a4e26";
-        ctx.lineWidth = 3;
-        ctx.strokeRect(X + 3.5, Y + 3.5, TILE - 7, TILE - 7);
-        ctx.beginPath();
-        ctx.moveTo(X + 4, Y + 4); ctx.lineTo(X + TILE - 4, Y + TILE - 4);
-        ctx.moveTo(X + TILE - 4, Y + 4); ctx.lineTo(X + 4, Y + TILE - 4);
-        ctx.lineWidth = 2; ctx.stroke();
+        ctx.fillStyle = "rgba(255,244,214,.95)";
+        ctx.fillRect(X + TILE / 2 - 4, Y + 1, 8, TILE - 2);
+        ctx.fillRect(X + 1, Y + TILE / 2 - 4, TILE - 2, 8);
+        ctx.beginPath();                                     // Schleife
+        ctx.arc(X + TILE / 2 - 5, Y + 4, 4.5, 0, TAU);
+        ctx.arc(X + TILE / 2 + 5, Y + 4, 4.5, 0, TAU);
+        ctx.fill();
+        ctx.fillStyle = "rgba(244,248,255,.95)";             // Schneekappe oben
+        ctx.fillRect(X + 1, Y + 1, TILE - 2, 6);
+        ctx.beginPath(); ctx.arc(X + TILE / 2, Y + 7, 7, Math.PI, 0); ctx.fill();
       } else if (c === "P") {
+        // Holzbrett mit Schneedecke
         ctx.fillStyle = "#5a3d2b";
         ctx.fillRect(X + 2, Y + 8, TILE - 4, TILE - 14);
         ctx.fillStyle = "#8a674b";
         ctx.fillRect(X + 2, Y + 8, TILE - 4, 8);
-        ctx.fillStyle = "rgba(255,255,255,.18)";
-        ctx.fillRect(X + 2, Y + 8, TILE - 4, 2.5);
+        ctx.fillStyle = "rgba(244,248,255,.95)";
+        ctx.fillRect(X, Y + 3, TILE, 8);
+        ctx.beginPath();
+        ctx.arc(X + 12, Y + 11, 5, Math.PI, 0);
+        ctx.arc(X + 30, Y + 12, 6, Math.PI, 0);
+        ctx.fill();
       } else if (c === "^") {
-        ctx.fillStyle = "#97a3b6";
+        // Eiszapfen
         for (let i = 0; i < 3; i++) {
+          ctx.fillStyle = "#bcd9ee";
           ctx.beginPath();
           ctx.moveTo(X + 4 + i * 14, Y + TILE - 4);
           ctx.lineTo(X + 11 + i * 14, Y + 6);
           ctx.lineTo(X + 18 + i * 14, Y + TILE - 4);
+          ctx.closePath(); ctx.fill();
+          ctx.fillStyle = "#eaf5fd";
+          ctx.beginPath();
+          ctx.moveTo(X + 8 + i * 14, Y + TILE - 4);
+          ctx.lineTo(X + 11 + i * 14, Y + 6);
+          ctx.lineTo(X + 13 + i * 14, Y + TILE - 4);
           ctx.closePath(); ctx.fill();
         }
       }
@@ -1267,7 +1303,60 @@ function drawTent(ctx, x, baseY, w, h, col, active) {
     ctx.lineTo(x + w / 2 + 17 + wave, baseY - h - 11);
     ctx.lineTo(x + w / 2, baseY - h - 5);
     ctx.closePath(); ctx.fill();
+    // Lichterkette entlang beider Dachkanten
+    const lc = ["#f87171", "#fbbf24", "#4ade80", "#60a5fa"];
+    for (let i = 0; i <= 4; i++) {
+      const t = i / 4;
+      const pts = [
+        [x + (w / 2) * t, baseY - h * t],
+        [x + w - (w / 2) * t, baseY - h * t],
+      ];
+      for (let s = 0; s < 2; s++) {
+        const lx = pts[s][0], ly = pts[s][1] + 4;
+        ctx.globalAlpha = .3;
+        ctx.fillStyle = lc[(i + s * 2) % 4];
+        ctx.beginPath(); ctx.arc(lx, ly, 5, 0, TAU); ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.beginPath(); ctx.arc(lx, ly, 2.6, 0, TAU); ctx.fill();
+      }
+    }
   }
+}
+
+/* Geschmueckter Weihnachtsbaum mit Lichtern und Stern */
+function drawChristmasTree(ctx, x, baseY, s) {
+  ctx.fillStyle = "#6e431f";
+  ctx.fillRect(x - 4 * s, baseY - 10 * s, 8 * s, 10 * s);
+  const layers = [[34, 26], [26, 22], [18, 18]];
+  let y = baseY - 8 * s;
+  const greens = ["#2e7d4f", "#2a7347", "#257040"];
+  for (let i = 0; i < 3; i++) {
+    const hw = layers[i][0] * s, h = layers[i][1] * s;
+    y -= h;
+    ctx.fillStyle = greens[i];
+    ctx.beginPath();
+    ctx.moveTo(x - hw, y + h); ctx.lineTo(x, y); ctx.lineTo(x + hw, y + h);
+    ctx.closePath(); ctx.fill();
+    // Schneeschicht auf jeder Etage
+    ctx.fillStyle = "rgba(244,248,255,.85)";
+    ctx.beginPath(); ctx.ellipse(x, y + h * .82, hw * .78, h * .2, 0, 0, TAU); ctx.fill();
+  }
+  // Lichterkette (blinkt versetzt)
+  const lc = ["#f87171", "#fbbf24", "#60a5fa", "#f472b6", "#4ade80"];
+  const dots = [[-.5, -.35], [.4, -.5], [0, -.62], [-.25, -.8], [.28, -.86], [0, -1.02], [-.55, -.62], [.55, -.28]];
+  for (let i = 0; i < dots.length; i++) {
+    const blink = Math.sin(Game.clock * 3 + i * 1.7) > -0.2;
+    if (!blink) continue;
+    ctx.fillStyle = lc[i % lc.length];
+    ctx.beginPath();
+    ctx.arc(x + dots[i][0] * 34 * s, y + dots[i][1] * 44 * s + 10 * s, 2.4 * s, 0, TAU);
+    ctx.fill();
+  }
+  // Stern oben
+  ctx.fillStyle = "#fde047";
+  ctx.font = `${Math.round(15 * s)}px serif`;
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText("★", x, y - 6 * s);
 }
 
 function drawFlame(ctx, x, y, w, h, col) {
@@ -1310,6 +1399,7 @@ function drawCheckpoints(ctx) {
     const x = c.x, y = c.y;
     drawTent(ctx, x - 52, y, 80, 60, c.active ? "#e0554d" : "#7b8aa0", c.active);
     drawCampfire(ctx, x + 42, y, c.active, x * 0.03);
+    drawChristmasTree(ctx, x - 84, y, 0.62);
   }
 }
 
@@ -1324,6 +1414,8 @@ function drawGoal(ctx) {
   ctx.translate(-x, -y);
   drawTent(ctx, x - 64, y, 128, 94, "#3b82f6", true);
   ctx.restore();
+  // grosser Weihnachtsbaum neben dem Ziel-Zelt
+  drawChristmasTree(ctx, x - 96, y, 1.15);
   // Wimpel volle Hoehe uem das Zelt
   const apexX = x, apexY = y - 94;
   ctx.strokeStyle = "#cbd5e1"; ctx.lineWidth = 3;
@@ -1357,10 +1449,18 @@ function drawCoins(ctx) {
     ctx.beginPath(); ctx.arc(0, 0, 17 + 3 * Math.sin(c.t * 5), 0, TAU); ctx.fill();
     ctx.globalAlpha = 1;
     ctx.scale(Math.max(sq, .12), 1);
+    // Weihnachtsglocke
     ctx.fillStyle = "#fbbf24";
-    ctx.beginPath(); ctx.arc(0, 0, 11, 0, TAU); ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-8, 5);
+    ctx.quadraticCurveTo(-8, -7, 0, -9);
+    ctx.quadraticCurveTo(8, -7, 8, 5);
+    ctx.quadraticCurveTo(0, 8.5, -8, 5);
+    ctx.closePath(); ctx.fill();
     ctx.fillStyle = "#fde68a";
-    ctx.beginPath(); ctx.arc(0, 0, 7, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.arc(0, -3, 3.5, 0, TAU); ctx.fill();
+    ctx.fillStyle = "#b45309";
+    ctx.beginPath(); ctx.arc(0, 7.5, 2.6, 0, TAU); ctx.fill();
     ctx.restore();
   }
 }
@@ -1400,21 +1500,34 @@ function drawEnemy(ctx, e) {
     return;
   }
   if (e.kind === "walker") {
+    // Schneemann mit Karottennase, Kohleaugen, Aermel-Stoeckchen und rotem Schal
     const bob = Math.abs(Math.sin(Game.clock * 7 + e.x)) * 3;
-    ctx.fillStyle = "#e0669a";
-    roundRect(ctx, e.x, e.y + 6 - bob, e.w, e.h - 6 + bob, 12); ctx.fill();
-    ctx.fillStyle = "#9d3866";
-    roundRect(ctx, e.x + 4, e.y + e.h - 10, e.w - 8, 8, 5); ctx.fill();
-    ctx.fillStyle = "#ffffff";
-    ctx.beginPath(); ctx.arc(e.x + 13, e.y + 16, 6, 0, TAU); ctx.arc(e.x + 29, e.y + 16, 6, 0, TAU); ctx.fill();
+    const cx = e.x + e.w / 2, base = e.y + e.h - bob;
+    const look = e.dir || -1;
+    ctx.strokeStyle = "#6e431f"; ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(cx - 11, base - 15); ctx.lineTo(cx - 19, base - 22 - bob);
+    ctx.moveTo(cx + 11, base - 15); ctx.lineTo(cx + 19, base - 22 + bob);
+    ctx.stroke();
+    ctx.fillStyle = "#f6faff";
+    ctx.strokeStyle = "rgba(110,140,180,.55)"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(cx, base - 12, 13, 0, TAU); ctx.fill(); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx, base - 27, 9.5, 0, TAU); ctx.fill(); ctx.stroke();
     ctx.fillStyle = "#1e293b";
-    const look = (e.dir || -1) * 2;
-    ctx.beginPath(); ctx.arc(e.x + 13 + look, e.y + 16, 2.7, 0, TAU); ctx.arc(e.x + 29 + look, e.y + 16, 2.7, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.arc(cx - 3.5, base - 29, 1.8, 0, TAU); ctx.arc(cx + 3.5, base - 29, 1.8, 0, TAU); ctx.fill();
+    ctx.fillStyle = "#f97316";
+    ctx.beginPath();
+    ctx.moveTo(cx + look * 3, base - 26.5);
+    ctx.lineTo(cx + look * 12, base - 24);
+    ctx.lineTo(cx + look * 3, base - 21.5);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "#d64545";
+    ctx.fillRect(cx - 9, base - 21, 18, 4);
+    ctx.fillRect(cx + look * 6, base - 17, 4, 7);
   } else if (e.kind === "spiker") {
-    ctx.fillStyle = "#7c3aed";
-    ctx.beginPath(); ctx.arc(e.x + e.w / 2, e.y + e.h / 2 + 3, e.w / 2 - 4, 0, TAU); ctx.fill();
-    ctx.fillStyle = "rgba(167,139,250,.9)";
+    // Stachelige rote Christbaumkugel (nicht stampfbar!)
     const cx = e.x + e.w / 2, cy = e.y + e.h / 2 + 3;
+    ctx.fillStyle = "#fbbf24";
     for (let i = 0; i < 7; i++) {
       const a = -Math.PI / 2 + (i / 7) * TAU + Game.clock * 0.6;
       ctx.beginPath();
@@ -1423,12 +1536,18 @@ function drawEnemy(ctx, e) {
       ctx.lineTo(cx + Math.cos(a + .3) * 14, cy + Math.sin(a + .3) * 14);
       ctx.closePath(); ctx.fill();
     }
+    ctx.fillStyle = "#b91c1c";
+    ctx.beginPath(); ctx.arc(cx, cy, e.w / 2 - 4, 0, TAU); ctx.fill();
+    ctx.fillStyle = "rgba(255,255,255,.35)";
+    ctx.beginPath(); ctx.arc(cx - 7, cy - 8, 6, 0, TAU); ctx.fill();
+    ctx.fillStyle = "#4ade80";
+    ctx.fillRect(cx - 3, cy - e.w / 2 - 2, 6, 6);
     ctx.fillStyle = "#ffffff";
     ctx.beginPath(); ctx.arc(e.x + 17, e.y + 22, 5, 0, TAU); ctx.arc(e.x + 29, e.y + 22, 5, 0, TAU); ctx.fill();
     ctx.fillStyle = "#1e293b";
     ctx.beginPath(); ctx.arc(e.x + 17, e.y + 22, 2.3, 0, TAU); ctx.arc(e.x + 29, e.y + 22, 2.3, 0, TAU); ctx.fill();
   } else {
-    // flyer
+    // flyer: Vogel mit Nikolausmuetze
     const flap = Math.sin(Game.clock * 13 + e.x * .01) * 12;
     ctx.fillStyle = "#64748b";
     ctx.beginPath();
@@ -1446,6 +1565,17 @@ function drawEnemy(ctx, e) {
     ctx.fillRect(e.x + e.w / 2 - 12, e.y + 15, 24, 6);
     ctx.fillStyle = "#fde047";
     ctx.beginPath(); ctx.arc(e.x + e.w / 2 - 4, e.y + 13, 2.6, 0, TAU); ctx.arc(e.x + e.w / 2 + 4, e.y + 13, 2.6, 0, TAU); ctx.fill();
+    // Nikolausmuetze
+    const hx = e.x + e.w / 2;
+    ctx.fillStyle = "#d64545";
+    ctx.beginPath();
+    ctx.moveTo(hx - 9, e.y + 9);
+    ctx.quadraticCurveTo(hx - 4, e.y - 7, hx + 8, e.y - 5);
+    ctx.quadraticCurveTo(hx + 9, e.y + 1, hx + 9, e.y + 9);
+    ctx.closePath(); ctx.fill();
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(hx - 10, e.y + 7, 20, 4);
+    ctx.beginPath(); ctx.arc(hx + 9, e.y - 5, 3, 0, TAU); ctx.fill();
   }
 }
 
@@ -1658,7 +1788,7 @@ const UI = {
   setLevel(idx, name) { this.el("hud-level").textContent = `Level ${idx + 1} · ${name}`; },
   updateHUD(g) {
     if (g.score !== this.lastScore) { this.el("hud-score").innerHTML = `<span class="hud-label">Punkte</span> ${g.score}`; this.lastScore = g.score; }
-    if (g.coins !== this.lastCoins) { this.el("hud-coins").textContent = `🪙 ${g.coins}`; this.lastCoins = g.coins; }
+    if (g.coins !== this.lastCoins) { this.el("hud-coins").textContent = `🔔 ${g.coins}`; this.lastCoins = g.coins; }
     if (g.lives !== this.lastLives) {
       this.el("hud-lives").textContent = g.lives > 0 ? "❤".repeat(g.lives) : "—";
       this.lastLives = g.lives;
@@ -1715,6 +1845,7 @@ function loop(ts) {
   last = ts;
   Game.clock += dt;
   Input.poll();                              // Gamepad + Quellen-Merge (auch im Menue/Pause)
+  updateSnow(dt, Game.canvas.clientWidth, Game.canvas.clientHeight);
   if (Game.state === "play") {
     Game.totalTime += dt;
     update(dt);

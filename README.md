@@ -55,7 +55,7 @@ Zwei Möglichkeiten:
 - **Datumslogik:** Türchen N öffnet sich ab dem N. Dezember (00:00 Uhr), verschlossene
   Türchen wackeln und Hans erklärt, wie lange es noch dauert.
 - **Überraschungen:** goldenes Bonus-Türchen ⭐, zufällig gemischte Türchen-Positionen
-  (bei jedem Jahr gleich), Konfetti + Pop-Sound beim Öffnen, Schneefall-Schalter 🔊/❄️
+  (bei jedem Jahr gleich), Konfetti + Pop-Sound beim Öffnen, Schneefall per Default an (Schalter ❄️ in der Kopfzeile)
   im Header, Sammelalbum mit 24 Stickern (localStorage), Finale-Überraschung mit
   Konfetti-Sturm und Fanfare, wenn alle 24 offen sind.
 - **Hans wandert mit:** Unter dem Türchen-Raster läuft Hans (CI-Figur

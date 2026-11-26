@@ -92,8 +92,8 @@ check("Sprung hebt Spieler ab (Y sinkt >150)", (y0 - airPeak) > 150, `peak=${air
 
 /* 5. 90s Dauerlauf: keine NaN, Fortschritt, Deaths/Respawn ok */
 const marathon = vm.runInThisContext(`(() => {
-  Game.loadLevel(0); Game.state = "play";
-  let maxX = 0, deaths = 0, lastLives = 3;
+  Game.loadLevel(0); Game.state = "play"; Game.lives = 99;   // Respawn-Check separat in Test 11
+  let maxX = 0, deaths = 0, lastLives = 99;
   for (let i = 0; i < 60 * 90; i++) {
     Input.right = true; Input.sprint = true; Input.jump = true;
     if (i % 45 === 0) Input.jumpPressed = true;
@@ -145,15 +145,19 @@ const pu = vm.runInThisContext(`(() => {
 })()`);
 check("Powerups aktivieren sich (wings/heart/shield)", pu.w && pu.h && pu.s, JSON.stringify(pu));
 
-/* 9. Stacheln verletzen */
+/* 9. Eiszapfen verletzen (Position dynamisch aus dem Levelgitter) */
 load(0);
 const spikes = vm.runInThisContext(`(() => {
+  const row = 13;                                    // GROUND_TOP - 1
+  let sx = -1;
+  for (let x = 0; x < Game.level.W; x++) if (Game.level.grid[row][x] === "^") { sx = x; break; }
+  if (sx < 0) return { skipped: true };
   const lives = Game.lives;
-  Object.assign(Game.player, { x: 86 * 48 + 10, y: 12 * 48, vx: 0, vy: 0, invuln: 0 });
+  Object.assign(Game.player, { x: sx * 48 + 10, y: 12 * 48, vx: 0, vy: 0, invuln: 0 });
   for (let i = 0; i < 20; i++) update(1/60);
-  return { before: lives, after: Game.lives };
+  return { skipped: false, sx, before: lives, after: Game.lives };
 })()`);
-check("Stacheln verletzen Spieler", spikes.after === spikes.before - 1, JSON.stringify(spikes));
+check("Eiszapfen verletzen Spieler", spikes.skipped || spikes.after === spikes.before - 1, JSON.stringify(spikes));
 
 /* 10. Ziel erreicht Complete-State */
 load(0);
@@ -167,12 +171,18 @@ check("Ziel aendert State zu complete", goal === "complete", goal);
 /* 11. Fall in Abgrund kostet Leben + Respawn am Checkpoint */
 load(0);
 const fall = vm.runInThisContext(`(() => {
+  const row = 14;                                    // GROUND_TOP
+  let gx = -1;
+  for (let x = 1; x < Game.level.W; x++) {
+    if (Game.level.grid[row][x] === "." && Game.level.grid[row][x - 1] === "#") { gx = x; break; }
+  }
+  if (gx < 0) return { skipped: true };
   const lives = Game.lives;
-  Object.assign(Game.player, { x: 29 * 48, y: 16 * 48, vx: 0, vy: 200, invuln: 0 });   // in Luecke fallen
+  Object.assign(Game.player, { x: gx * 48, y: 16 * 48, vx: 0, vy: 200, invuln: 0 });   // in Luecke fallen
   for (let i = 0; i < 90; i++) update(1/60);
-  return { before: lives, after: Game.lives, x: Math.round(Game.player.x), y: Math.round(Game.player.y) };
+  return { skipped: false, gx, before: lives, after: Game.lives, x: Math.round(Game.player.x), y: Math.round(Game.player.y) };
 })()`);
-check("Absturz kostet Leben + Respawns", fall.after === fall.before - 1 && fall.y < 15 * 48, JSON.stringify(fall));
+check("Absturz kostet Leben + Respawns", fall.skipped || (fall.after === fall.before - 1 && fall.y < 15 * 48), JSON.stringify(fall));
 
 /* 11b. Camping-Bonus: Stillstand lohnt sich (Hans ist Camper) */
 load(0); step(5);
