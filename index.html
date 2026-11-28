@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Adventskalender im Camper-Hans-Stil – 24 Türchen voller Spiele, Rätsel und Überraschungen.">
+  <!-- Referrer mitsenden: YouTube-Einbettungen verweigern ohne Referer die Wiedergabe (Fehler 153) -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Adventskalender – Camper Hans</title>
   <link rel="stylesheet" href="css/camper-hans.css">
   <link rel="stylesheet" href="css/advent.css">
@@ -15,7 +17,7 @@
     <div class="ch-header-inner">
       <a class="ch-logo" href="#">
         <img src="images/logos/logo-hans-emblem.png" alt="Camper Hans Logo">
-        <b>Durch den Advent mit</b>&nbsp;Hans
+        <b>Durch den Advent mit</b>Hans
       </a>
       <nav class="ch-nav">
         <a href="#kalender" class="ch-active">Kalender</a>
@@ -104,6 +106,10 @@
       <p class="ch-lead" id="advent-modal-text"></p>
       <div id="advent-modal-video-wrap" style="display:none;" class="ch-mb-sm">
         <video id="advent-modal-video" class="advent-video" controls playsinline preload="metadata"></video>
+        <iframe id="advent-modal-yt" class="advent-video" style="display:none;" title="YouTube-Video"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
       </div>
       <div id="advent-modal-raetsel" style="display:none;">
         <p class="ch-h3">🧩 Die Frage:</p>

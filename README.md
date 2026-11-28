@@ -28,7 +28,7 @@ Pro Türchen (1–24) kann man definieren:
 | `typ` | `"link"` (externer Link), `"video"` (lokales Video aus `assets/`), `"spiel"` (eingebettetes Spiel aus `games/`), `"raetsel"` (Frage+Lösung), `"witz"` (Text), `"aktion"` (Mitmach-Aufgabe) |
 | `titel`, `emoji`, `sticker` | Anzeige im Türchen und Sammelalbum |
 | `url` + `urlText` | Link zum Goodie (Game, Video, Rätsel-Seite …) – bei `typ: "link"` |
-| `video` | Pfad zu einer lokalen Videodatei, z. B. `"assets/Weihnachten_mit_Camper_Hans.mp4"` – bei `typ: "video"` |
+| `video` | Video, das direkt im Türchen abgespielt wird – bei `typ: "video"`. Entweder lokaler Pfad, z. B. `"assets/Weihnachten_mit_Camper_Hans.mp4"`, oder ein YouTube-Link (`watch?v=…`, `youtu.be/…`, `embed/…`, `shorts/…`); die Video-ID wird automatisch erkannt und per iframe eingebettet. **Hinweis:** YouTube verweigert die Einbettung ohne HTTP-Referer (Fehler 153), wenn die Seite per Doppelklick über `file://` geöffnet wird – dann die Seite über `python -m http.server` ausliefern oder den automatisch angezeigten Fallback-Link „▶ Auf YouTube ansehen ↗“ nutzen |
 | `spiel` | Pfad zu einer lokalen Spiel-Seite, z. B. `"games/hans-and-run/index.html"` – bei `typ: "spiel"` wird das Spiel in einem Vollbild-Overlay (iframe) geöffnet. Der Button-Text kommt aus `urlText` |
 | `frage` + `antwort` | Eigenes Rätsel – bei `typ: "raetsel"` |
 | `text` | Erklärtext im Türchen |

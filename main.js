@@ -435,6 +435,12 @@
 
   const overlay = el('advent-modal-overlay');
 
+  /* Erkennt YouTube-Links (watch?v=…, youtu.be/…, /embed/…, /shorts/…) und liefert die Video-ID */
+  function youtubeId(url) {
+    const m = String(url || '').match(/(?:youtube(?:-nocookie)?\.com\/(?:watch\?[^#]*v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+    return m ? m[1] : null;
+  }
+
   function zeigeModal(t) {
     el('advent-modal-emoji').textContent = t.emoji || '🎁';
     el('advent-modal-titel').textContent = 'Türchen ' + t.nummer + ': ' + t.titel;
@@ -442,17 +448,38 @@
     badge.textContent = (t.nummer === golden ? '⭐ Goldenes Türchen' : 'Türchen ' + t.nummer);
     el('advent-modal-text').textContent = nameEinsetzen(t.text || '');
 
-    /* Lokales Video (z. B. assets/...) direkt im Modal abspielen */
+    /* Video direkt im Modal abspielen: lokales Video (z. B. assets/...) oder YouTube-Link */
     const videoWrap = el('advent-modal-video-wrap');
     const video = el('advent-modal-video');
+    const yt = el('advent-modal-yt');
+    const ytId = youtubeId(t.video);
     if (t.typ === 'video' && t.video) {
       videoWrap.style.display = '';
-      if (video.getAttribute('src') !== t.video) video.src = t.video;
-      const p = video.play();
-      if (p && p.catch) p.catch(function () { /* Autoplay blockiert – Nutzer klickt Play */ });
+      if (ytId) {
+        /* YouTube: per iframe einbetten (ein <video>-Tag kann YouTube nicht abspielen).
+           Ohne Referer/Origin verweigert YouTube die Wiedergabe mit Fehler 153 –
+           deshalb origin-Parameter mitsenden, sobald die Seite über http(s) läuft. */
+        video.pause();
+        video.removeAttribute('src');
+        video.style.display = 'none';
+        yt.style.display = '';
+        let src = 'https://www.youtube-nocookie.com/embed/' + ytId + '?autoplay=1&rel=0';
+        if (location.protocol === 'http:' || location.protocol === 'https:') {
+          src += '&origin=' + encodeURIComponent(location.origin);
+        }
+        if (yt.getAttribute('src') !== src) yt.src = src;
+      } else {
+        yt.removeAttribute('src'); /* stoppt ggf. laufendes YouTube-Video */
+        yt.style.display = 'none';
+        video.style.display = '';
+        if (video.getAttribute('src') !== t.video) video.src = t.video;
+        const p = video.play();
+        if (p && p.catch) p.catch(function () { /* Autoplay blockiert – Nutzer klickt Play */ });
+      }
     } else {
       videoWrap.style.display = 'none';
       video.pause();
+      yt.removeAttribute('src');
     }
 
     const link = el('advent-modal-link');
@@ -462,9 +489,11 @@
       link.textContent = (t.urlText || '▶ Jetzt spielen');
       link.style.display = '';
       link.onclick = function (e) { e.preventDefault(); spielOeffnen(t); };
-    } else if (t.url) {
-      link.href = t.url;
-      link.textContent = (t.urlText || 'Auf geht\'s!') + ' ↗';
+    } else if (t.url || ytId) {
+      /* YouTube-Videos bekommen automatisch einen Fallback-Link, falls die Einbettung
+         blockiert wird (z. B. Fehler 153 bei file:// – dann auf YouTube weiterleiten) */
+      link.href = t.url || ('https://www.youtube.com/watch?v=' + ytId);
+      link.textContent = (t.urlText || '▶ Auf YouTube ansehen') + ' ↗';
       link.style.display = '';
       link.onclick = null;
     } else {
@@ -495,6 +524,8 @@
     overlay.classList.remove('advent-visible');
     const video = el('advent-modal-video');
     if (video) video.pause();
+    const yt = el('advent-modal-yt');
+    if (yt) yt.removeAttribute('src'); /* stoppt die YouTube-Wiedergabe */
   }
 
   el('advent-modal-close').addEventListener('click', modalSchliessen);

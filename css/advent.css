@@ -225,7 +225,7 @@ body.ch-body.advent-body {
 .raetsel-loesung { display: none; }
 .raetsel-loesung.raetsel-visible { display: block; }
 
-/* Lokales Video im Modal (Sticker-Rahmen wie Spielflächen) */
+/* Lokales Video / YouTube-iframe im Modal (Sticker-Rahmen wie Spielflächen) */
 .advent-video {
   display: block;
   width: 100%;
@@ -233,6 +233,10 @@ body.ch-body.advent-body {
   border: 3px solid var(--ch-night);
   border-radius: var(--ch-radius-lg);
   box-shadow: var(--ch-shadow-soft);
+}
+iframe.advent-video {
+  aspect-ratio: 16 / 9;
+  height: auto;
 }
 
 /* ---------- Spiel-Overlay (eingebettetes Spiel per iframe, z. B. games/hans-and-run) ---------- */

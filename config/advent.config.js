@@ -49,8 +49,10 @@ window.ADVENT_CONFIG = {
   /* Die 24 Türchen. "nummer" = Tag im Dezember (1–24).
      typ: "link" (externer Link) | "spiel" (eingebettetes Spiel, z. B. games/hans-and-run)
           | "raetsel" (Frage + Antwort) | "witz" (Text) | "aktion" (Mitmach-Aktion ohne Link)
+          | "video" (Video direkt im Türchen: lokale Datei oder YouTube-Link)
      Pflicht: nummer, titel, typ, emoji, sticker
-     Optional: url + urlText, spiel (Pfad zur Spiel-HTML), text,
+     Optional: url + urlText, spiel (Pfad zur Spiel-HTML), video (lokale Datei in assets/
+               oder YouTube-Link wie https://www.youtube.com/watch?v=…), text,
                frage + antwort, hansSpruch, farbe
      farbe: "sun" | "sky" | "forest" | "fire" | "wood" | "berry" */
   tuerchen: [
@@ -64,12 +66,16 @@ window.ADVENT_CONFIG = {
       video: "assets/Weihnachten_mit_Camper_Hans.mp4",
       text: "Das phantastische Camper-Hans-Weihnachtslied – spielt direkt hier im Türchen!" },
 
-    { nummer: 3,  typ: "witz",   titel: "Der sprechende Muffin",  emoji: "😂", sticker: "🍪", farbe: "sun",
-      text: "Treffen sich zwei Muffins im Ofen. Sagt das eine: „Puh, ist das heiß hier!“ Sagt das andere: „Hilfe, ein sprechendes Muffin!“" },
+    { nummer: 3,  typ: "raetsel", titel: "Latein-Rätsel: Quis sum?", emoji: "🏛️", sticker: "🐭", farbe: "sun",
+      text: "Heute wird gerätselt – auf Lateinisch! Schwierigkeitsstufe: 2. Jahr Latein am Gymnasium. Viel Spaß beim Knobeln! 📜",
+      frage: "Ein kleines Tier meldet sich auf Lateinisch zu Wort: „Sum parvus! In domo vivo. Caseum amo! Felis me non amat. Quis sum?“ – welches Tier ist das?",
+      antwort: "„mus“ – die Maus! 🐭 Merke: murus = die Mauer, mus = die Maus – nicht verwechseln! 😄 Bonus-Wissen: „musculus“ heißt auf Deutsch „Mäuschen“ und „Muskel“ in einem! 💪",
+      hansSpruch: "„Caseum amo!“ – selbst auf Lateinisch ist Käse das Größte!" },
 
-    { nummer: 4,  typ: "link",   titel: "Welt-Entdecker",         emoji: "🌍", sticker: "🏔️",
-      url: "https://www.geoguessr.com", urlText: "GeoGuessr spielen",
-      text: "Du wirst irgendwo auf der Welt ausgesetzt – errate, wo!" },
+    { nummer: 4,  typ: "video",  titel: "Belohnungs-Video",        emoji: "🎬", sticker: "🎬", farbe: "sky",
+      video: "https://www.youtube.com/watch?v=ys8qlRH3X9o",
+      text: "Als Belohnung für Tür 4 gibt es ein besonderes Video – direkt hier im Türchen, Popcorn inklusive! 🍿",
+      hansSpruch: "Die beste Belohnung? Ein Video, das man nicht wegklicken kann!" },
 
     { nummer: 5,  typ: "link",   titel: "KI zeichnen lassen",     emoji: "🎨", sticker: "🎨", farbe: "sky",
       url: "https://quickdraw.withgoogle.com", urlText: "Quick Draw starten",
